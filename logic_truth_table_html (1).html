@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logikos veiksmų teisingumo lentelė</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #1e1e1e;
+            color: #ffffff;
+            margin: 20px;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #4fc3f7;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #2d2d2d;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        
+        th, td {
+            padding: 12px;
+            text-align: center;
+            border: 1px solid #444;
+        }
+        
+        th {
+            background-color: #3d3d3d;
+            font-weight: bold;
+            color: #4fc3f7;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #353535;
+        }
+        
+        tr:hover {
+            background-color: #404040;
+        }
+        
+        .legend {
+            margin-top: 30px;
+            background-color: #2d2d2d;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #4fc3f7;
+        }
+        
+        .legend h2 {
+            color: #4fc3f7;
+            margin-top: 0;
+        }
+        
+        .legend ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .legend li {
+            margin: 8px 0;
+            padding: 5px 0;
+        }
+        
+        .symbol {
+            font-weight: bold;
+            color: #81c784;
+        }
+        
+        .description {
+            color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Logikos veiksmų teisingumo lentelė</h1>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>A</th>
+                    <th>B</th>
+                    <th>¬A</th>
+                    <th>¬B</th>
+                    <th>A ∧ B</th>
+                    <th>A ∨ B</th>
+                    <th>A → B</th>
+                    <th>A ↔ B</th>
+                    <th>A ⊕ B</th>
+                    <th>A|B (NAND)</th>
+                    <th>A↓B (NOR)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>0</td>
+                    <td>1</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>0</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>0</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>1</td>
+                    <td>0</td>
+                    <td>1</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>1</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="legend">
+            <h2>Legenda:</h2>
+            <ul>
+                <li><span class="symbol">¬A, ¬B</span> – <span class="description">Neiginys (inversija)</span></li>
+                <li><span class="symbol">A ∧ B, A & B</span> – <span class="description">Konjunkcija („ir")</span></li>
+                <li><span class="symbol">A ∨ B</span> – <span class="description">Disjunkcija („arba")</span></li>
+                <li><span class="symbol">A → B</span> – <span class="description">Implikacija („jei A, tai B")</span></li>
+                <li><span class="symbol">A ↔ B</span> – <span class="description">Ekvivalencija (lygybė)</span></li>
+                <li><span class="symbol">A ⊕ B</span> – <span class="description">Išskirtinė disjunkcija (XOR, „arba vienas, arba kitas")</span></li>
+                <li><span class="symbol">A|B (NAND)</span> – <span class="description">Šeferio brūkšnys („ne ir")</span></li>
+                <li><span class="symbol">A↓B (NOR)</span> – <span class="description">Šeferio rodyklė („ne arba")</span></li>
+            </ul>
+        </div>
+        
+        <div class="legend">
+            <h2>Pirso rodyklė</h2>
+            <p>Funkcija <em>f₁</em> yra vadinama <strong>Pirso rodykle</strong> ir žymima ↓:</p>
+            <p style="font-size: 1.2em; text-align: center; margin: 20px 0; font-family: monospace;">
+                <strong>f₁(x₁, x₂) = x₁ ↓ x₂ = <span style="text-decoration: overline;">x₁ ∨ x₂</span> = <span style="text-decoration: overline;">x₁</span> & <span style="text-decoration: overline;">x₂</span></strong>
+            </p>
+        </div>
+        
+        <div class="legend">
+            <h2>Šeferio brūkšnelis</h2>
+            <p>Funkcija <em>f₇</em> žymima | ir yra vadinama <strong>Šeferio brūkšneliu</strong>:</p>
+            <p style="font-size: 1.2em; text-align: center; margin: 20px 0; font-family: monospace;">
+                <strong>f₇(x₁, x₂) = x₁|x₂ = <span style="text-decoration: overline;">x₁&x₂</span> = <span style="text-decoration: overline;">x₁</span> ∨ <span style="text-decoration: overline;">x₂</span></strong>
+            </p>
+        </div>
+        
+        <div class="legend">
+            <h2>Monotoniškumas</h2>
+            <p>Funkcija <em>g(x,y) = x ∨ y</em> yra <strong>monotoniška</strong> funkcija.</p>
+            
+            <div style="display: flex; align-items: center; gap: 30px; margin: 20px 0;">
+                <div>
+                    <table style="width: auto; font-size: 0.9em;">
+                        <thead>
+                            <tr style="background-color: #4a4a4a;">
+                                <th>X</th>
+                                <th>Y</th>
+                                <th>X ∨ Y</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>0</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>0</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div style="text-align: center;">
+                    <p style="margin-bottom: 10px; font-family: monospace;">
+                        f(0,0) → f(0,1) → f(1,1)<br>
+                        f(0,0) → f(1,0) → f(1,1)
+                    </p>
+                    <div style="margin: 15px 0; font-size: 1.5em; color: #81c784;">
+                        0 ≤ 1 ≤ 1
+                    </div>
+                </div>
+            </div>
+            
+            <p><strong>Monotoniškumo savybė:</strong> Jei padidiname bet kurį argumentą (iš 0 į 1), funkcijos reikšmė nepraranda - ji arba lieka ta pati, arba taip pat padidėja.</p>
+        </div>
+        
+        <div class="legend">
+            <h2>Aibių operacijos</h2>
+            
+            <div style="margin: 20px 0;">
+                <h3 style="color: #81c784; margin-bottom: 10px;">1. Sąjunga (junginys)</h3>
+                <p><strong>Formulė:</strong> <em>A ∪ B</em></p>
+                <p><strong>Pavyzdys:</strong> {1, 2} ∪ {2, 3} = {1, 2, 3}</p>
+            </div>
+            
+            <div style="margin: 20px 0;">
+                <h3 style="color: #81c784; margin-bottom: 10px;">2. Sankirta</h3>
+                <p><strong>Formulė:</strong> <em>A ∩ B</em></p>
+                <p><strong>Pavyzdys:</strong> {1, 2} ∩ {2, 3} = {2}</p>
+            </div>
+            
+            <div style="margin: 20px 0;">
+                <h3 style="color: #81c784; margin-bottom: 10px;">3. Skirtumas</h3>
+                <p><strong>Formulė:</strong> <em>A \ B</em></p>
+                <p><strong>Pavyzdys:</strong> {1, 2} \ {2, 3} = {1}</p>
+            </div>
+            
+            <div style="margin: 20px 0;">
+                <h3 style="color: #81c784; margin-bottom: 10px;">4. Simetrinis skirtumas</h3>
+                <p><strong>Formulė:</strong> <em>A△B = (A \ B) ∪ (B \ A)</em></p>
+                <p><strong>Pavyzdys:</strong> {1, 2}△{2, 3} = {1, 3}</p>
+            </div>
+            
+            <div style="margin: 20px 0;">
+                <h3 style="color: #81c784; margin-bottom: 10px;">5. Papildinys (universali aibė <em>U</em>)</h3>
+                <p><strong>Formulė:</strong> <span style="text-decoration: overline;">A</span> = <em>U \ A</em></p>
+                <p><strong>Pavyzdys:</strong> Jei <em>U</em> = {1, 2, 3}, tai <span style="text-decoration: overline;">{1, 2}</span> = {3}</p>
+            </div>
+        </div>
+        
+        <div class="legend">
+            <h2>Būlio funkcija</h2>
+            <p>Būlio funkcija yra tiesinė, jei ją galime išreikšti kaip XOR tarp kintamųjų ir konstantos, o taip pat tiesinės funkcijos požymis – funkcijos reikšmės turi atitikti tokios formos išraiską:</p>
+            <p style="font-size: 1.2em; text-align: center; margin: 20px 0; font-family: monospace; background-color: #3d3d3d; padding: 15px; border-radius: 5px;">
+                <strong>q(b,v) = a₀ ⊕ a₁b ⊕ a₂v</strong>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

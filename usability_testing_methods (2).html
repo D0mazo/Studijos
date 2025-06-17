@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panaudojamumo testavimo metodai su naudotojais</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        nav {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-bottom: 1px solid #e9ecef;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #495057;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            background: white;
+            border: 2px solid transparent;
+        }
+
+        nav a:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        main {
+            padding: 2rem;
+        }
+
+        .method-section {
+            margin-bottom: 3rem;
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid #667eea;
+        }
+
+        .method-section h2 {
+            color: #667eea;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .method-number {
+            background: #667eea;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .method-section h3 {
+            color: #495057;
+            margin: 1.5rem 0 0.5rem;
+            font-size: 1.2rem;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 0.5rem;
+        }
+
+        .advantages, .disadvantages {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .advantage-item, .disadvantage-item {
+            padding: 1rem;
+            border-radius: 10px;
+            border-left: 4px solid;
+        }
+
+        .advantage-item {
+            background: #d4edda;
+            border-left-color: #28a745;
+        }
+
+        .disadvantage-item {
+            background: #f8d7da;
+            border-left-color: #dc3545;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        tr:hover {
+            background: #e3f2fd;
+            transform: scale(1.01);
+            transition: all 0.3s ease;
+        }
+
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+
+        .timeline {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+
+        .timeline-item {
+            background: #667eea;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            position: relative;
+        }
+
+        .timeline-item:not(:last-child)::after {
+            content: '→';
+            position: absolute;
+            right: -1.5rem;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .likert-scale {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .scale-points {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .scale-point {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #667eea;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .scale-point:hover {
+            background: #667eea;
+            color: white;
+            transform: scale(1.1);
+        }
+
+        .priority-formula {
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin: 1rem 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #74b9ff, #0984e3);
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, #fdcb6e, #e17055);
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 0;
+                border-radius: 0;
+            }
+            
+            header h1 {
+                font-size: 1.8rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            main {
+                padding: 1rem;
+            }
+            
+            .method-section {
+                padding: 1rem;
+            }
+            
+            .advantages, .disadvantages {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Panaudojamumo testavimo metodai</h1>
+            <p>Išsamus vadovas testavimui su naudotojais</p>
+        </header>
+
+        <nav>
+            <ul>
+                <li><a href="#stebejimas">Stebėjimas</a></li>
+                <li><a href="#mąstymas">Mąstymas garsiai</a></li>
+                <li><a href="#protokolavimas">Protokolavimas</a></li>
+                <li><a href="#dienorasčiai">Įvykių dienoraščiai</a></li>
+                <li><a href="#savybiu-sarasas">Savybių sąrašas</a></li>
+                <li><a href="#apklausos">Apklausos</a></li>
+            </ul>
+        </nav>
+
+        <main>
+            <section id="stebejimas" class="method-section">
+                <h2><span class="method-number">1</span>Stebėjimas (Observations)</h2>
+                
+                <div class="info-box">
+                    <strong>Vykdytojai:</strong> Ekspertai/tyrinėtojai<br>
+                    <strong>Tinkamas:</strong> Projekto pradžioje su popieriniais prototipais
+                </div>
+
+                <h3>Vietos</h3>
+                <ul>
+                    <li><strong>Realioje aplinkoje</strong> - sunku organizuoti ir vykdyti, reikalauja daug laiko</li>
+                    <li><strong>Panaudojamumo laboratorijoje</strong> - kontroliuojama aplinka, profesionali įranga</li>
+                </ul>
+
+                <h3>Kas vertinama</h3>
+                <ul>
+                    <li>Užduočių vykdymo laikas</li>
+                    <li>Užduočių vykdymo sudėtingumas</li>
+                    <li>Naudotojo elgesio modeliai</li>
+                </ul>
+
+                <h3>Problemos ir sprendimai</h3>
+                <div class="warning-box">
+                    <strong>Problemos:</strong> Ar naudotojas tipinis? Ar užduotis tipinė? Skirtinga fizinė aplinka, socialinė motyvacija
+                </div>
+                <div class="info-box">
+                    <strong>Sprendimai:</strong> Panašesnė aplinka, tikri naudotojai, naudotojui palankus projektavimas
+                </div>
+            </section>
+
+            <section id="mąstymas" class="method-section">
+                <h2><span class="method-number">2</span>Mąstymas garsiai (Think Aloud)</h2>
+                
+                <p><strong>Metodas:</strong> Naudotojai reiškia mintis vykdydami užduotis, procesas įrašomas ir stebimas</p>
+
+                <h3>Privalumai</h3>
+                <div class="advantages">
+                    <div class="advantage-item">Atskleidžia naudotojų pasirinkimų priežastis</div>
+                    <div class="advantage-item">Parodo, kaip būsimi vartotojai naudos sistemą</div>
+                    <div class="advantage-item">Nedidelis dalyvių kiekis teikia daug vertingų duomenų</div>
+                    <div class="advantage-item">Dalyvių komentarai tiksliai apibūdina problemas</div>
+                    <div class="advantage-item">Matosi, kas naudotojui patinka</div>
+                </div>
+
+                <h3>Trūkumai</h3>
+                <div class="disadvantages">
+                    <div class="disadvantage-item">Nenatūralu ir blaškantis tikslaus mąstymo asmenims</div>
+                    <div class="disadvantage-item">Sulėtina testavimą</div>
+                    <div class="disadvantage-item">Nuvargina dalyvį</div>
+                    <div class="disadvantage-item">Dalyvis gali jausti įtampą</div>
+                    <div class="disadvantage-item">Reikalauja daug laiko</div>
+                </div>
+
+                <h3>Patobulinimas: Konstruktyvioji sąveika</h3>
+                <div class="info-box">
+                    <strong>2 dalyviai kalbėdami vykdo užduotis</strong><br>
+                    Įveikiamas klasikinio būdo nenatūralumas, dalyviai pateikia daugiau komentarų
+                </div>
+            </section>
+
+            <section id="protokolavimas" class="method-section">
+                <h2><span class="method-number">3</span>Veiklos protokolavimas (Logging)</h2>
+                
+                <div class="info-box">
+                    <strong>Vykdytojai:</strong> Speciali įranga (automatinis procesas)<br>
+                    <strong>Pobūdis:</strong> Nereikalauja vertintojo dalyvavimo naudotojo darbo vietoje
+                </div>
+
+                <h3>Kaip veikia</h3>
+                <div class="timeline">
+                    <div class="timeline-item">Protokolavimas aktyvuojamas</div>
+                    <div class="timeline-item">Įrašomos komandos ir laikas</div>
+                    <div class="timeline-item">Kuriamas sesijos protokolas</div>
+                    <div class="timeline-item">Duomenys siunčiami serveriui</div>
+                    <div class="timeline-item">Analizuojami rezultatai</div>
+                </div>
+
+                <h3>Fiksuojami duomenys</h3>
+                <ul>
+                    <li>Klavišų paspaudimai ir laikas</li>
+                    <li>Sistemos komandų naudojimas</li>
+                    <li>Naudotojo ir sistemos sąveikos sekos</li>
+                    <li>Veiksmų trukmė ir dažnumas</li>
+                </ul>
+
+                <h3>Microsoft Word protokolavimo pavyzdys</h3>
+                <div class="info-box">
+                    <strong>Tyrimo aprašas:</strong>
+                    <ul>
+                        <li>Protokolavimas aktyvuojamas automatiškai atidarant Microsoft Word</li>
+                        <li>Įrašomos Word komandos (kopijuoti, įterpti ir pan.) su laiko žymomis</li>
+                        <li>Kiekvienai sesijai kuriamas atskiras protokolas</li>
+                        <li>Baigus darbą, protokolas siunčiamas serveriui</li>
+                        <li>Serveryje protokolas talpinamas į duomenų bazę ir analizuojamas</li>
+                    </ul>
+                </div>
+
+                <h3>Protokolo pavyzdys</h3>
+                <div class="code-block">
+<strong>Initiated OWL 4.4 Logging at 1/5/98 17:11:34</strong><br>
+System Identifier/Author m300<br>
+Platform = Macintosh 7.5.5<br>
+Processor: 68040<br>
+Microsoft Word Version 6.0.1<br><br>
+17:11:34 FileOpen Frobnut:Conferences 98:ITS'98:Notes for ITS 98<br>
+17:11:36 Doc size: 4,790<br>
+17:12:05 EditCopy<br>
+17:12:15 EditPaste<br>
+17:12:40 EditClear<br>
+17:12:49 EditCut<br>
+17:12:55 FormatBold<br>
+17:13:12 FilePrint<br>
+17:13:34 FileDocClose<br>
+17:13:34 Doc size: 4,834<br>
+17:13:34 Filename: Notes for ITS 98
+                </div>
+
+                <h3>Rezultatų analizės pavyzdys</h3>
+                <div style="background: #f8f9fa; padding: 1rem; border-radius: 10px; margin: 1rem 0;">
+                    <strong>Command Type Usage (Percent)</strong>
+                    <div style="margin-top: 1rem;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin: 0.5rem 0; padding: 0.5rem; background: white; border-radius: 5px;">
+                            <span><strong>File</strong></span>
+                            <div style="width: 200px; background: #e9ecef; border-radius: 10px; overflow: hidden;">
+                                <div style="width: 90%; background: #667eea; height: 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem;">45%</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin: 0.5rem 0; padding: 0.5rem; background: white; border-radius: 5px;">
+                            <span><strong>Edit</strong></span>
+                            <div style="width: 200px; background: #e9ecef; border-radius: 10px; overflow: hidden;">
+                                <div style="width: 70%; background: #667eea; height: 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem;">35%</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin: 0.5rem 0; padding: 0.5rem; background: white; border-radius: 5px;">
+                            <span><strong>Format</strong></span>
+                            <div style="width: 200px; background: #e9ecef; border-radius: 10px; overflow: hidden;">
+                                <div style="width: 20%; background: #667eea; height: 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem;">10%</div>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin: 0.5rem 0; padding: 0.5rem; background: white; border-radius: 5px;">
+                            <span>View, Tools, Table, Insert, Window, Help</span>
+                            <div style="width: 200px; background: #e9ecef; border-radius: 10px; overflow: hidden;">
+                                <div style="width: 10%; background: #667eea; height: 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.8rem;">5%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Analizės priemonių pavyzdžiai</h3>
+                <div class="advantages">
+                    <div class="advantage-item">
+                        <strong>MedioVis Advanced - Blockbuster</strong><br>
+                        Pažangi vizualizacijos priemonė duomenų analizei ir grafinio pateikimo kūrimui
+                    </div>
+                    <div class="advantage-item">
+                        <strong>KNIME</strong><br>
+                        Konstanz Information Miner - naudojama DROID protokolavimo duomenų analizei
+                    </div>
+                    <div class="advantage-item">
+                        <strong>Social Network Analysis</strong><br>
+                        Socialinių tinklų analizės metodai naudotojų sąveikos modelių tyrimui
+                    </div>
+                </div>
+
+                <h3>Optimizavimo sritys</h3>
+                <div class="info-box">
+                    Komandų ir sistemos galimybių naudojimo statistika naudinga optimizuojant:
+                    <ul>
+                        <li><strong>Dažnai naudojamas funkcijas</strong> - pagerinti prieinamumą ir greitį</li>
+                        <li><strong>Retai naudojamas funkcijas</strong> - perkelti į antrinius meniu</li>
+                        <li><strong>Visai nenaudojamas funkcijas</strong> - pašalinti arba persvarstyti</li>
+                        <li><strong>Problemingas sritis</strong> - kur naudotojai daro klaidų ar kartoja veiksmus</li>
+                    </ul>
+                </div>
+
+                <h3>Naudojimo sritys</h3>
+                <ul>
+                    <li>Sistemos funkcinių galimybių naudojimo dažnio skaičiavimas</li>
+                    <li>Daugelio naudotojų interfeiso objektų naudojimo statistikos išryškinimas</li>
+                    <li>Tam tikrų objektų spragtelėjimų analizė</li>
+                    <li>Panaudojamumo problemų, nepastebėtų stebėjimo metu, išaiškinimas</li>
+                </ul>
+
+                <h3>Ribojimai ir trūkumai</h3>
+                <div class="warning-box">
+                    <ul>
+                        <li><strong>Motyvacija:</strong> Neparodo KODĖL naudotojas veikė tokiu būdu</li>
+                        <li><strong>Emocijos:</strong> Neparodo veido išraiškų, nuotaikos, streso lygių</li>
+                        <li><strong>Kontekstas:</strong> Neparodo komentarų, netyčia išreikštų sudėtingesnėje sesijos dalyje</li>
+                        <li><strong>Sąžiningumas:</strong> Neleidžia įsitikinti, kad naudotojai sąžiningi</li>
+                        <li><strong>Autentiškumas:</strong> Protokolas gali neatspindėti tikro sistemos naudojimo</li>
+                        <li><strong>Kokybiniai duomenys:</strong> Sesijos protokolas rodo tik ką naudotojas veikė, o ne jo patirtį</li>
+                    </ul>
+                </div>
+
+                <div class="info-box">
+                    <strong>Sprendimas:</strong> Derinti su apklausomis - parodyti sesijos protokolą ir paprašyti paaiškinti veiksmus
+                </div>
+            </section>
+
+            <section id="dienorasčiai" class="method-section">
+                <h2><span class="method-number">4</span>Įvykių dienoraščiai (Incident Diaries)</h2>
+                
+                <div class="info-box">
+                    <strong>Vykdytojai:</strong> Projektuotojai<br>
+                    <strong>Pobūdis:</strong> Nuotolinis testavimas
+                </div>
+
+                <h3>Metodas</h3>
+                <p>Naudotojai kviečiami protokoluoti savo veiksmus ir pastebėjimus žurnaluose, naudojant gaminį</p>
+
+                <h3>Testavimo eiga</h3>
+                <ol>
+                    <li>Pateikti gaminio prototipą</li>
+                    <li>Pateikti sąrašą realizuotų užduočių</li>
+                    <li>Pateikti žurnalą veiksmų ir pastabų fiksavimui</li>
+                </ol>
+
+                <h3>Tipiniai dienoraščio klausimai</h3>
+                
+                <h4>Problemos identifikavimas:</h4>
+                <ul>
+                    <li>Kelintą valandą išaiškėjo problema?</li>
+                    <li>Kaip prasidėjo problemos?
+                        <ul>
+                            <li>nežinojau, kaip pasielgti</li>
+                            <li>neaiškus pranešimas</li>
+                            <li>jei kitaip, nurodykite</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h4>Pagalbos paieška:</h4>
+                <ul>
+                    <li>Kokias pagalbos priemones naudojote?
+                        <ul>
+                            <li>sistemos pagalbą</li>
+                            <li>sistemos dokumentaciją</li>
+                            <li>klausiau kolegų</li>
+                            <li>stebėjau kitą naudotoją</li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <h4>Problemos sprendimas:</h4>
+                <ul>
+                    <li>Ar gauta informacija padėjo išspręsti problemą? (Taip visiškai / Taip dalinai / Ne)</li>
+                    <li>Kiek laiko truko išspręsti problemą? (< 1 min / 1-5 min / kitaip)</li>
+                </ul>
+
+                <h3>Tinkamas laikas</h3>
+                <div class="timeline">
+                    <div class="timeline-item">Ankstyvieji testavimai</div>
+                    <div class="timeline-item">Projekto vidurys (NAUDINGIAUSIA)</div>
+                    <div class="timeline-item">Projektų pabaiga</div>
+                </div>
+            </section>
+
+            <section id="savybiu-sarasas" class="method-section">
+                <h2><span class="method-number">5</span>Savybių sąrašas (Feature Checklist)</h2>
+                
+                <div class="info-box">
+                    <strong>Vykdytojai:</strong> Projektuotojai<br>
+                    <strong>Formatas:</strong> Lentelė su sistemos funkcijomis ir vertinimo kriterijais
+                </div>
+
+                <h3>Bazinis sąrašas</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Funkcija</th>
+                            <th>Ar girdėta?</th>
+                            <th>Ar naudota?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Fonas</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                        </tr>
+                        <tr>
+                            <td>Kopijuoti</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                        </tr>
+                        <tr>
+                            <td>Iškirpti</td>
+                            <td>✓</td>
+                            <td>✗</td>
+                        </tr>
+                        <tr>
+                            <td>Nauja kortelė</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                        </tr>
+                        <tr>
+                            <td>Įterpti</td>
+                            <td>✗</td>
+                            <td>✗</td>
+                        </tr>
+                        <tr>
+                            <td>Teksto stilius</td>
+                            <td>✗</td>
+                            <td>✗</td>
+                        </tr>
+                        <tr>
+                            <td>Atšaukti</td>
+                            <td>✓</td>
+                            <td>✗</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Patobulintas sąrašas (su mokymosi šaltiniais)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Funkcija</th>
+                            <th>Ar girdėta?</th>
+                            <th>Ar naudota?</th>
+                            <th>Kaip išmokote?</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Fonas</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>Kopijuoti</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                            <td>2</td>
+                        </tr>
+                        <tr>
+                            <td>Nauja kortelė</td>
+                            <td>✓</td>
+                            <td>✓</td>
+                            <td>3</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Mokymosi šaltinių kodai</h3>
+                <ul>
+                    <li><strong>0</strong> – neprisimenu</li>
+                    <li><strong>1</strong> – radau meniu</li>
+                    <li><strong>2</strong> – perskaičiau sistemos dokumentacijoje</li>
+                    <li><strong>3</strong> – girdėjau apmokymo metu</li>
+                    <li><strong>4</strong> – sužinojau iš kolegų</li>
+                </ul>
+
+                <h3>Tinkamas laikas</h3>
+                <ul>
+                    <li><strong>Projekto viduryje:</strong> Testuojant beta versiją (nežymiai sutrikdo veiklas)</li>
+                    <li><strong>Po galutinės versijos:</strong> Duomenų rinkimas atnaujinimams</li>
+                    <li><strong>Analizės tikslas:</strong> Ar perėjo į pilno naudojimo etapą</li>
+                </ul>
+            </section>
+
+            <section id="apklausos" class="method-section">
+                <h2><span class="method-number">6</span>Apklausos (Surveys)</h2>
+                
+                <div class="info-box">
+                    <strong>Vykdytojai:</strong> Panaudojamumo ekspertai<br>
+                    <strong>Paskirtis:</strong> Išaiškinti naudotojų nuomonę apie sistemą
+                </div>
+
+                <h3>Klausimynų tipai</h3>
+                <ul>
+                    <li><strong>Struktūrizuoti</strong> ar <strong>lankstūs</strong></li>
+                    <li><strong>Standartiniai:</strong> SUMI, QUIS</li>
+                    <li><strong>Kuriami eksperto</strong> ar <strong>perkami</strong></li>
+                </ul>
+
+                <h3>Klausimų kategorijos</h3>
+
+                <h4>1. Atviri ir uždari klausimai</h4>
+                <h4>2. Vertinantys klausimai:</h4>
+                <ul>
+                    <li>Taškais nuo 1 iki 10</li>
+                    <li><strong>Likerto skalė:</strong> nuo "griežtai nesutinku" iki "griežtai sutinku"</li>
+                </ul>
+
+                <h3>Likerto skalės pavyzdys</h3>
+                <div class="likert-scale">
+                    <div style="flex: 1;">
+                        <strong>"Manau, kad dažnai naudosiu šį gaminį"</strong>
+                    </div>
+                    <div>
+                        <div style="margin-bottom: 0.5rem;">Griežtai nesutinku → Griežtai sutinku</div>
+                        <div class="scale-points">
+                            <div class="scale-point">1</div>
+                            <div class="scale-point">2</div>
+                            <div class="scale-point">3</div>
+                            <div class="scale-point">4</div>
+                            <div class="scale-point">5</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Derinimas su testavimais</h3>
+                
+                <h4>Prieš testavimą:</h4>
+                <ul>
+                    <li>Dalyvio kompetencija IT srityje</li>
+                    <li>Kurias ir kiek laiko naudoja dominančias priemones</li>
+                </ul>
+
+                <h4>Po testavimo - įspūdžiai:</h4>
+                <ul>
+                    <li>Kaip vertinate sistemą bendrai?</li>
+                    <li>Ar susidūrėte su sunkumais, netikėtumais?</li>
+                    <li>Kas Jums labiausiai patiko?</li>
+                    <li>Kas Jums labiausiai nepatiko?</li>
+                </ul>
+
+                <h3>Pokalbiai (Focus Groups)</h3>
+                <table>
+                    <tr>
+                        <td><strong>Dalyviai</strong></td>
+                        <td>4-6 naudotojai</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Trukmė</strong></td>
+                        <td>~45 minutės</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Procesas</strong></td>
+                        <td>Laisvai dalijamasi gaminio naudojimo įspūdžiais</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Vaidmuo</strong></td>
+                        <td>Vertintojas pradeda pokalbį ir įrašo eigą</td>
+                    </tr>
+                </table>
+            </section>
+
+            <section class="method-section">
+                <h2>Egzamino klausimai</h2>
+                
+                <div class="info-box">
+                    <h3>📚 Teoriniai klausimai panaudojamumo vertinimui</h3>
+                </div>
+
+                <div class="warning-box">
+                    <h4>1. Metodų palyginimas</h4>
+                    <p><strong>Palyginkite panaudojamumo vertinimus: pažintinę peržvalgą, euristinį tikrinimą, testavimą su naudotojais šiais aspektais:</strong></p>
+                    <ul>
+                        <li><strong>Paskirtis</strong> - kam skirtas kiekvienas metodas?</li>
+                        <li><strong>Projekto etapai</strong> - kokiuose projekto etapuose tikslinga vykdyti?</li>
+                        <li><strong>Vertinimo dalyviai</strong> - kas dalyvauja vertinime?</li>
+                        <li><strong>Paruošimas</strong> - ką reikia paruošti vertinimui?</li>
+                        <li><strong>Rezultatai</strong> - kas yra vertinimo rezultatas?</li>
+                    </ul>
+                </div>
+
+                <h3>Metodų palyginimo lentelė</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Aspektas</th>
+                            <th>Pažintinė peržvalga</th>
+                            <th>Euristinis tikrinimas</th>
+                            <th>Testavimas su naudotojais</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Paskirtis</strong></td>
+                            <td>Išmokstamumo ir paprastumo vertinimas</td>
+                            <td>Atitikimas euristikoms ir projektavimo principams</td>
+                            <td>Tikrų naudotojų patirties tyrimai</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Projekto etapai</strong></td>
+                            <td>Ankstyvieji etapai, prototipai</td>
+                            <td>Bet kuriame etape, ypač prototipų</td>
+                            <td>Visi etapai: prototipai → galutinis produktas</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dalyviai</strong></td>
+                            <td>Ekspertai, projektuotojai</td>
+                            <td>Panaudojamumo ekspertai</td>
+                            <td>Tikri naudotojai + ekspertai</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Paruošimas</strong></td>
+                            <td>Užduočių scenarijai, ekspertų komanda</td>
+                            <td>Euristikų sąrašas, vertinimo kriterijai</td>
+                            <td>Dalyviai, užduotys, laboratorija/aplinka</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Rezultatai</strong></td>
+                            <td>Probleminių sričių identifikavimas</td>
+                            <td>Euristikų pažeidimų sąrašas su prioritetais</td>
+                            <td>Kiekybiniai duomenys, naudotojų nuomonės</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="warning-box">
+                    <h4>2. Klaidų prioritizavimas</h4>
+                    <p><strong>Kaip prioritizuojamos testavimo metu aptiktos klaidos?</strong></p>
+                </div>
+
+                <div class="priority-formula">
+                    Pavojingumo formulė = Sunkumas + Dažnis
+                </div>
+
+                <h3>Sunkumo vertinimas (1-4 skalė)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Laipsnis</th>
+                            <th>Aprašymas</th>
+                            <th>Apibrėžimas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>4</td>
+                            <td>Nepanaudojamas</td>
+                            <td>Vartotojas nesugeba arba nenori panaudoti tam tikros produkto dalies dėl projektavimo ar įgyvendinimo būdo</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Sunkus (Keblus)</td>
+                            <td>Vartotojas bando naudoti produktą, bet yra apribotas dėl jo gebėjimų. Vartotojui sunku susidoroti su šia savybe</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Vidutiniškas (Reikalaujantis pastangų)</td>
+                            <td>Vartotojas sugeba naudoti produktą daugeliu atvejų, bet turi dėti papildomas pastangas sprendžiant problemas</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>Erzinantis</td>
+                            <td>Problema įvyksta tiktai protarpiais, gali būti apeita lengvai. Gali būti kosmetinė problema</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Dažnio vertinimas (1-4 skalė)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Laipsnis</th>
+                            <th>Pasitaikymo dažnis</th>
+                            <th>Aprašymas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>4</td>
+                            <td>≥90% naudojamo laiko</td>
+                            <td>Problema paveiks beveik visus naudotojus</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>51-89% naudojamo laiko</td>
+                            <td>Problema paveiks daugumą naudotojų</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>11-50% naudojamo laiko</td>
+                            <td>Problema paveiks dalį naudotojų</td>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>≤10% naudojamo laiko</td>
+                            <td>Problema paveiks nedaug naudotojų</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Prioritizavimo pavyzdžiai</h3>
+                <div class="advantages">
+                    <div class="advantage-item">
+                        <strong>Sunki, bet reta problema</strong><br>
+                        Sunkumas = 4, Dažnis = 1<br>
+                        <strong>Prioritetas: 4 + 1 = 5</strong><br>
+                        <em>Pvz.: kritinė klaida, kuri paveiks tik 5% naudotojų</em>
+                    </div>
+                    <div class="advantage-item">
+                        <strong>Nesunki, bet dažna problema</strong><br>
+                        Sunkumas = 1, Dažnis = 4<br>
+                        <strong>Prioritetas: 1 + 4 = 5</strong><br>
+                        <em>Pvz.: kosmetinė problema, kuri paveiks 95% naudotojų</em>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <h4>Skaičiavimo metodai:</h4>
+                    <ul>
+                        <li><strong>Procentas dalyvių</strong>, kuriems iškilo problema</li>
+                        <li><strong>Tikimybė</strong>, kad problema kils konkrečios grupės dalyviui</li>
+                        <li><strong>Bendras prioritetas</strong> = Sunkumas + Dažnis (2-8 skalėje)</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="method-section">
+                <h2>Prioritizavimas ir procesai</h2>
+                
+                <h3>Testavimo procesas</h3>
+                <div class="timeline">
+                    <div class="timeline-item">Planavimas</div>
+                    <div class="timeline-item">Dalyvių komplektavimas</div>
+                    <div class="timeline-item">Užduočių formulavimas</div>
+                    <div class="timeline-item">Bandomasis testavimas</div>
+                    <div class="timeline-item">Testo vykdymas</div>
+                    <div class="timeline-item">Duomenų analizė</div>
+                    <div class="timeline-item">Ataskaita</div>
+                </div>
+
+                <h3>Klaidų prioritizavimas</h3>
+                <div class="priority-formula">
+                    Pavojingumo formulė = Sunkumas + Dažnis
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Laipsnis</th>
+                            <th>Sunkumas</th>
+                            <th>Dažnis</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Erzinantis</td>
+                            <td>≤10% naudojimo laiko</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Vidutiniškas</td>
+                            <td>11-50% naudojimo laiko</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Sunkus</td>
+                            <td>51-89% naudojimo laiko</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>Nepanaudojamas</td>
+                            <td>≥90% naudojimo laiko</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Taikymo sritys</h3>
+                <div class="info-box">
+                    Visi metodai tinka:
+                    <ul>
+                        <li><strong>Interfeiso aprašams</strong></li>
+                        <li><strong>Prototipams</strong></li>
+                        <li><strong>Veikiančioms sistemoms</strong></li>
+                    </ul>
+                    Efektyvumas didėja derinant kelis metodus vienu metu.
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+
+        // Interactive Likert scale
+        document.querySelectorAll('.scale-point').forEach(point => {
+            point.addEventListener('click', function() {
+                // Reset all points
+                document.querySelectorAll('.scale-point').forEach(p => {
+                    p.style.backgroundColor = '';
+                    p.style.color = '';
+                });
+                
+                // Highlight selected point and all previous
+                const value = parseInt(this.textContent);
+                for(let i = 1; i <= value; i++) {
+                    const currentPoint = document.querySelector(`.scale-point:nth-child(${i})`);
+                    currentPoint.style.backgroundColor = '#667eea';
+                    currentPoint.style.color = 'white';
+                }
+            });
+        });
+
+        // Add fade-in animation for sections
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Initially hide sections
+        document.querySelectorAll('.method-section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>
