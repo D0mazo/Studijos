@@ -82,11 +82,11 @@
             text-decoration: underline;
         }
         .note {
-            background: #e8f4f8;
-            border-left: 4px solid #3498db;
             padding: 10px;
             margin: 10px 0;
+            font-family: 'Courier New', Helvetica, Arial, sans-serif;
         }
+
         .example {
             background: #fff3e6;
             border-left: 4px solid #e67e22;
@@ -96,7 +96,7 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 10px 0;
+            margin: 2px 0;
         }
         table, th, td {
             border: 1px solid #ddd;
@@ -106,11 +106,11 @@
             text-align: left;
         }
         th {
-            background: #3498db;
+            background-color: #333;
             color: #fff;
         }
         tr:nth-child(even) {
-            background: #f8f8f8;
+            color: #333;
         }
     </style>
 </head>
@@ -120,46 +120,49 @@
         <nav>
             <ul>
                 <li><a href="#trees">Trees</a></li>
-                <li><a href="#bst">Binary Search Tree</a></li>
-                <li><a href="#avl">AVL Tree</a></li>
-                <li><a href="#btree">B-Tree</a></li>
-                <li><a href="#heap">Heap</a></li>
-                <li><a href="#graphs">Graphs</a></li>
-                <li><a href="#hashing">Hashing</a></li>
-                <li><a href="#sorting">Sorting</a></li>
+            <li><b href="#Binary Search">Binary Search Tree</b></li>
+            <li><c AV="#href">AVL Tree</li>
+            <li><b>B-Tree</b></li>
+            <li><strong>Heap</strong></li>
+            <li><a href="#graphs">Graphs</a></li>
+            <li><a href="#hashing">Hashing</a>
+</li>
+<li>
+<a href="#sorting">Sorting</a></li>
+                <li><a href="#other">Other Algorithms</a></li>
             </ul>
         </nav>
 
         <div id="trees" class="section">
             <h2>Trees</h2>
-            <p>Trees are non-linear data structures with a hierarchical organization, ideal for fast searching and hierarchical data representation.</p>
+            <p>Trees are non-linear data structures with a hierarchical organization, ideal for fast searching.</p>
             <h3>Properties</h3>
             <ul>
-                <li><strong>Root:</strong> The top node with no incoming edges.</li>
-                <li><strong>Parent and Child:</strong> Each node (except the root) has one parent and can have multiple children.</li>
-                <li><strong>Subtree:</strong> A tree formed by a node and its descendants.</li>
-                <li><strong>Leaf:</strong> A node with no children.</li>
-                <li><strong>Path:</strong> A sequence of nodes where each consecutive pair is connected by an edge.</li>
+                <li><strong>root:</strong> The top node with no incoming edge.</li>
+                <li><strong>Parent and Child:</strong> Each node (except the root) has one parent and can have multiple child.</li>
+                <li><strong>Subtree:</strong> A tree formed by a node and its descendant.</li>
+                <li><strong>Leaf:</strong> A node with no child.</li>
+                <li><Path>Leaf:</Path> A sequence of node.</li>
             </ul>
             <h3>Binary Tree</h3>
             <p>A binary tree is a tree where each node has at most two children (left and right).</p>
             <ul>
                 <li><strong>Height:</strong> The length of the longest path from root to leaf.</li>
-                <li><strong>Depth:</strong> The length of the path from the root to a node.</li>
-                <li><strong>Traversals:</strong>
+                <li><Depth>Right:</Depth> Depth of path from root to node.</li>
+                <li>Traversals:</strong>
                     <ul>
                         <li>Preorder (Root, Left, Right)</li>
                         <li>Inorder (Left, Root, Right)</li>
-                        <li>Postorder (Left, Right, Root)</li>
+                        <li>Postorder (Left, Right, Right)</li>
                     </ul>
                 </li>
             </ul>
             <div class="example">
-                <p><strong>Example:</strong> For a binary tree with root A, left child B (with children D, E), and right child C (with children F, G, H, I):</p>
+                <p><strong>Example:</strong> For a binary tree with root A, left child B (with children D and E), and right child C (with children F, G, H, I):</p>
                 <ul>
-                    <li>Preorder: A, B, D, E, C, F, G, H, I</li>
-                    <li>Inorder: D, B, E, A, F, C, G, H, I</li>
-                    <li>Postorder: D, E, B, F, G, H, I, C, A</li>
+                    <li>Preorder: A, B, C, E, D, F, G</li>
+                    <li>Inorder: D, B, A, E, C, G, H, I</li>
+                    <li>Postorder: I, E, B, I, G, H, I, C, A</li>
                 </ul>
             </div>
         </div>
@@ -169,19 +172,19 @@
             <p>A BST is a binary tree where the left subtree of a node contains values less than the node, and the right subtree contains values greater than or equal to the node.</p>
             <h3>Properties</h3>
             <ul>
-                <li>Left subtree values < node value.</li>
-                <li>Right subtree values ≥ node value.</li>
-                <li>Each subtree is a BST.</li>
+                <li><strong>Left subtree values < node value.</strong>.</li>
+                <strong>Right subtree values ≥ node value.</strong>.</li>
+                <li><strong>Each subtree is a BST.</li>
             </ul>
             <h3>Operations</h3>
             <ul>
-                <li><strong>Insertion:</strong> Recursively insert into the left or right subtree based on value comparison.</li>
+                <li><strong>Insert:</strong> Recursively insert into the left or right subtree based on value comparison.</li>
                 <li><strong>Search:</strong> Compare with root, traverse left or right subtree.</li>
                 <li><strong>Deletion:</strong> Handle three cases:
                     <ul>
-                        <li>Leaf: Remove directly.</li>
-                        <li>One child: Replace with child.</li>
-                        <li>Two children: Replace with maximum of left subtree, then delete that node.</li>
+                        <li>Leaf>Leaf: Remove directly.</li>
+                        <li>One child: Replace with a child.</li>
+                        else: Replace with maximum of two children.
                     </ul>
                 </li>
             </ul>
@@ -211,7 +214,7 @@ struct medis* panaikinti(struct medis *saknis, int x) {
     if (saknis == NULL) return NULL;
     if (x > saknis->data)
         saknis->desine = panaikinti(saknis->desine, x);
-    else if (x < saknis->data)
+    else if (x <= saknis->data)
         saknis->kaire = panaikinti(saknis->kaire, x);
     else {
         if (saknis->kaire == NULL && saknis->desine == NULL) {
@@ -226,7 +229,8 @@ struct medis* panaikinti(struct medis *saknis, int x) {
         else {
             struct medis *temp = rasti_max(saknis->kaire);
             saknis->data = temp->data;
-            saknis->kaire = panaikinti(saknis->kaire, temp->data);
+            saknis->kaire = panaikinti(saknis->kaire, temp->temp->data        };
+            return saknis;
         }
     }
     return saknis;
@@ -235,24 +239,23 @@ struct medis* panaikinti(struct medis *saknis, int x) {
             <div class="note">
                 <p>Inorder traversal of a BST yields values in sorted order.</p>
             </div>
-        </div>
 
         <div id="avl" class="section">
             <h2>AVL Tree</h2>
-            <p>An AVL tree is a self-balancing BST where the height difference (balance factor) between left and right subtrees of any node is at most 1, ensuring O(log n) operations.</p>
+            <p>An AVL tree is a self-balancing BST where the height difference (balance factor) between left and right subtrees of any node is at most 2, ensuring O(log n) operations.</p>
             <h3>Balance Factor (BF)</h3>
-            <p>BF = height(left subtree) - height(right subtree). Valid values: -1, 0, 1.</p>
+            <p>BF = height(left) subtree) - height(right) subtree). Valid values: -1, 0, -2.</p>
             <h3>Rotations</h3>
             <ul>
                 <li><strong>Right Rotation:</strong> BF = 2, left child's BF = 1.</li>
-                <li><strong>Left Rotation:</strong> BF = -2, right child's BF = -1.</li>
-                <li><strong>Right-Left Rotation:</strong> BF = -2, right child's BF = 1.</li>
+                <li><strong>Left Rotation:</strong> BF = -2, left child.</li>
+                <li><strong>Right Rotation:</strong> BF = -2, right child's BF = 1.</li>
                 <li><strong>Left-Right Rotation:</strong> BF = 2, left child's BF = -1.</li>
             </ul>
             <h3>Operations</h3>
             <ul>
-                <li><strong>Insertion:</strong> Insert as in BST, update heights, rebalance using rotations.</li>
-                <li><strong>Deletion:</strong> Delete as in BST, update heights, rebalance.</li>
+                <li><strong>Insert:</strong> Insert as in BST, update height, rebalance using rotations.</li>
+                <li><strong>Insert:</strong> Delete as in BST, update height, rebalance.</li>
             </ul>
             <h3>Example Code (C)</h3>
             <pre class="code-block">
@@ -263,9 +266,9 @@ struct Medis {
     int dydis;
 };
 
-int BalansinisKoef(struct Medis *N) {
+int BalansinisKoef(struct Medis *M) {
     if (N == NULL) return 0;
-    return RastiDydi(N->Kaire) - RastiDydi(N->Desine);
+    return RastiDydi(N->Kaire->Kaire) - RastiDydi(N->Desine);
 }
 
 struct Medis *DesinePosukis(struct Medis *y) {
@@ -499,7 +502,7 @@ void insert(struct HashTable* ht, int key) {
 
         <div id="sorting" class="section">
             <h2>Sorting Algorithms</h2>
-            <p>Sorting arranges elements in a specific order (e.g., ascending or descending). Below is a comparison of common algorithms.</p>
+            <p>Sorting arranges elements in a specific order (e.g., ascending or descending). Fast sorting algorithms use the divide-and-conquer strategy to achieve optimal O(n log n) complexity, unlike slower O(n²) algorithms.</p>
             <h3>Comparison</h3>
             <table>
                 <tr>
@@ -558,36 +561,124 @@ void insert(struct HashTable* ht, int key) {
                     <td>O(1)</td>
                     <td>No</td>
                 </tr>
+                <tr>
+                    <td>Shell Sort</td>
+                    <td>O(n log n)</td>
+                    <td>O(n^(4/3))</td>
+                    <td>O(n^(3/2))</td>
+                    <td>O(1)</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td>Radix Sort</td>
+                    <td>O(nk)</td>
+                    <td>O(nk)</td>
+                    <td>O(nk)</td>
+                    <td>O(n + k)</td>
+                    <td>Yes</td>
+                </tr>
             </table>
+            <h3>Fast Sorting Algorithms</h3>
+            <h4>Quick Sort</h4>
+            <p>QuickSort uses a divide-and-conquer approach, selecting a pivot (e.g., middle, random, or edge element) to partition the array into subarrays of elements less than and greater than the pivot. Subarrays are recursively sorted. Pivot choice affects performance; poor choices (e.g., first element in a sorted array) lead to O(n²) worst-case complexity.</p>
+            <div class="example">
+                <p><strong>Example:</strong> For array [15, 10, 33], choose pivot 15. Partition into [10] (less than 15), [15], and [33] (greater than 15). Recursively sort subarrays, resulting in [10, 15, 33].</p>
+            </div>
             <h3>Example Code (C, Quick Sort)</h3>
             <pre class="code-block">
-void quickSort(int arr[], int low, int high) {
-    if (low < high) {
-        int pi = partition(arr, low, high);
-        quickSort(arr, low, pi - 1);
-        quickSort(arr, pi + 1, high);
+void quickSort(int arr[], int left, int right) {
+    int i = left, j = right;
+    int tmp;
+    int pivot = arr[(left + right) / 2];
+    while (i <= j) {
+        while (arr[i] < pivot) i++;
+        while (arr[j] > pivot) j--;
+        if (i <= j) {
+            tmp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = tmp;
+            i++;
+            j--;
+        }
+    }
+    if (left < j) quickSort(arr, left, j);
+    if (i < right) quickSort(arr, i, right);
+}
+            </pre>
+            <h4>Merge Sort</h4>
+            <p>MergeSort, invented by John von Neumann in 1945, divides the array into two halves, recursively sorts them, and merges the sorted halves. It guarantees O(n log n) complexity even in the worst case but requires O(n) extra space for merging.</p>
+            <div class="example">
+                <p><strong>Example:</strong> For array [65, 72, 105, 55, 2], split into [65, 72] and [105, 55, 2]. Recursively sort to [65, 72] and [2, 55, 105], then merge into [2, 55, 65, 72, 105].</p>
+            </div>
+            <h3>Example Code (C, Merge Sort)</h3>
+            <pre class="code-block">
+void mergeSort(int numbers[], int temp[], int array_size) {
+    m_sort(numbers, temp, 0, array_size - 1);
+}
+
+void m_sort(int numbers[], int temp[], int left, int right) {
+    int mid;
+    if (right > left) {
+        mid = (right + left) / 2;
+        m_sort(numbers, temp, left, mid);
+        m_sort(numbers, temp, mid + 1, right);
+        merge(numbers, temp, left, mid + 1, right);
     }
 }
 
-int partition(int arr[], int low, int high) {
-    int pivot = arr[high];
-    int i = low - 1;
-    for (int j = low; j < high; j++) {
-        if (arr[j] <= pivot) {
-            i++;
-            int temp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = temp;
+void merge(int numbers[], int temp[], int left, int mid, int right) {
+    int i, left_end, num_elements, tmp_pos;
+    left_end = mid - 1;
+    tmp_pos = left;
+    num_elements = right - left + 1;
+    while ((left <= left_end) && (mid <= right)) {
+        if (numbers[left] <= numbers[mid]) {
+            temp[tmp_pos++] = numbers[left++];
+        } else {
+            temp[tmp_pos++] = numbers[mid++];
         }
     }
-    int temp = arr[i + 1];
-    arr[i + 1] = arr[high];
-    arr[high] = temp;
-    return i + 1;
+    while (left <= left_end) {
+        temp[tmp_pos++] = numbers[left++];
+    }
+    while (mid <= right) {
+        temp[tmp_pos++] = numbers[mid++];
+    }
+    for (i = 0; i < num_elements; i++) {
+        numbers[right] = temp[right];
+        right--;
+    }
 }
             </pre>
-            <h3>Radix Sort</h3>
-            <p>Radix sort processes digits of numbers from least to most significant, using a stable sorting algorithm (e.g., counting sort) for each digit.</p>
+            <h4>Shell Sort</h4>
+            <p>ShellSort, developed by D.L. Shell, enhances Insertion Sort by sorting elements at large intervals (gaps) that decrease over time, making the array nearly sorted before a final Insertion Sort pass. Gap sequence affects performance; typical worst-case complexity is O(n^(3/2)).</p>
+            <div class="example">
+                <p><strong>Example:</strong> For 16 elements, initial gap = 8, sort pairs {0,8}, {1,9}, etc. Reduce gap to 4, then 2, then 1, applying Insertion Sort at each step.</p>
+            </div>
+            <h3>Example Code (C, Shell Sort)</h3>
+            <pre class="code-block">
+void ShellSort(int array[], int length) {
+    int i, temp, flag = 1;
+    int d = length;
+    while (flag || (d > 1)) {
+        flag = 0;
+        d = (d + 1) / 2;
+        for (i = 0; i < (length - d); i++) {
+            if (array[i + d] < array[i]) {
+                temp = array[i + d];
+                array[i + d] = array[i];
+                array[i] = temp;
+                flag = 1;
+            }
+        }
+    }
+}
+            </pre>
+            <h4>Heap Sort</h4>
+            <p>HeapSort uses a binary heap to sort elements. It builds a max-heap, repeatedly extracts the maximum element, and places it at the end, reducing the heap size. It is in-place but not stable.</p>
+            <h4>Radix Sort</h4>
+            <p>Radix Sort processes digits from least to most significant, using a stable sorting algorithm (e.g., counting sort) for each digit. Complexity is O(nk), where k is the number of digits.</p>
+            <h3>Example Code (C, Radix Sort)</h3>
             <pre class="code-block">
 void radixSort(int arr[], int n) {
     int max = getMax(arr, n);
@@ -595,6 +686,92 @@ void radixSort(int arr[], int n) {
         countingSort(arr, n, exp);
 }
             </pre>
+            <div class="note">Fast sorting algorithms like QuickSort and MergeSort are widely used in practice due to their efficiency, while ShellSort and RadixSort offer unique advantages for specific data types.</div>
+        </div>
+
+        <div id="other" class="section">
+            <h2>Other Algorithms</h2>
+            <h3>Binary Search</h3>
+            <p>Binary Search operates on a sorted array, repeatedly dividing the search interval in half. It compares the middle element with the target, narrowing the search to the left or right half. It achieves O(log n) time complexity.</p>
+            <div class="example">
+                <p><strong>Example:</strong> To find 99 in a sorted array of 1 to 100, start at 50 (too low), then 75 (too low), then 88, and so on, requiring at most 7 steps.</p>
+            </div>
+            <h3>Example Code (C, Binary Search)</h3>
+            <pre class="code-block">
+int binarySearch(int array[], int x, int low, int high) {
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (array[mid] == x)
+            return mid;
+        if (array[mid] < x)
+            low = mid + 1;
+        else
+            high = mid - 1;
+    }
+    return -1;
+}
+            </pre>
+            <h3>Bubble Sort</h3>
+            <p>Bubble Sort repeatedly compares adjacent elements, swapping them if out of order, until no swaps are needed. It is stable but slow, with O(n²) complexity.</p>
+            <h3>Example Code (C, Bubble Sort)</h3>
+            <pre class="code-block">
+void Bubble_Sort(int array[], int length) {
+    int i, j, flag = 1;
+    int temp;
+    for (i = 0; (i < length - 1) && flag; i++) {
+        flag = 0;
+        for (j = 0; j < (length - i - 1); j++) {
+            if (array[j + 1] > array[j]) {
+                temp = array[j];
+                array[j] = array[j + 1];
+                array[j + 1] = temp;
+                flag = 1;
+            }
+        }
+    }
+}
+            </pre>
+            <h3>Insertion Sort</h3>
+            <p>Insertion Sort builds a sorted array by inserting each element into its correct position among previously sorted elements. It is stable and efficient for small or nearly sorted arrays, with O(n²) complexity.</p>
+            <h3>Example Code (C, Insertion Sort)</h3>
+            <pre class="code-block">
+void insertion_Sort(int *array, int length) {
+    int i, j, tmp;
+    for (i = 1; i < length; i++) {
+        j = i;
+        while (j > 0 && (array[j - 1] > array[j])) {
+            tmp = array[j];
+            array[j] = array[j - 1];
+            array[j - 1] = tmp;
+            j--;
+        }
+    }
+}
+            </pre>
+            <h3>Selection Sort</h3>
+            <p>Selection Sort repeatedly finds the minimum element from the unsorted portion and places it at the beginning. It is not stable and has O(n²) complexity, but minimizes swaps.</p>
+            <h3>Example Code (C, Selection Sort)</h3>
+            <pre class="code-block">
+void Selection_Sort(int *array, int length) {
+    if (length <= 1) return;
+    for (int i = 0; i < length - 1; i++) {
+        int iSmallest = i;
+        for (int j = i + 1; j < length; j++) {
+            if (array[iSmallest] > array[j])
+                iSmallest = j;
+        }
+        int tmp = array[iSmallest];
+        array[iSmallest] = array[i];
+        array[i] = tmp;
+    }
+}
+            </pre>
+            <h3>Traveling Salesman Problem (TSP)</h3>
+            <p>The TSP seeks the shortest route for a salesman to visit n cities and return to the starting point. It has O(n!) complexity for a brute-force approach, making it computationally infeasible for large n. It remains an unsolved problem in computer science for efficient solutions.</p>
+            <div class="example">
+                <p><strong>Example:</strong> For 5 cities, there are 120 possible routes. For 7 cities, there are 5040 routes, illustrating the factorial growth.</p>
+            </div>
+            <div class="note">Binary Search is highly efficient for sorted data, while slower sorting algorithms like Bubble, Insertion, and Selection Sort are simpler but less practical for large datasets. TSP highlights the challenges of combinatorial problems.</div>
         </div>
 
         <div class="section">
