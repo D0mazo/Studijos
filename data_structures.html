@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="lt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Structures and Algorithms</title>
+    <title>Duomenų Struktūros ir Algoritmai</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -82,11 +82,11 @@
             text-decoration: underline;
         }
         .note {
+            background: #e8f4f8;
+            border-left: 4px solid #3498db;
             padding: 10px;
             margin: 10px 0;
-            font-family: 'Courier New', Helvetica, Arial, sans-serif;
         }
-
         .example {
             background: #fff3e6;
             border-left: 4px solid #e67e22;
@@ -96,7 +96,7 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 2px 0;
+            margin: 10px 0;
         }
         table, th, td {
             border: 1px solid #ddd;
@@ -106,94 +106,92 @@
             text-align: left;
         }
         th {
-            background-color: #333;
+            background: #3498db;
             color: #fff;
         }
         tr:nth-child(even) {
-            color: #333;
+            background: #f8f8f8;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Data Structures and Algorithms</h1>
+        <h1>Duomenų Struktūros ir Algoritmai</h1>
         <nav>
             <ul>
-                <li><a href="#trees">Trees</a></li>
-            <li><b href="#Binary Search">Binary Search Tree</b></li>
-            <li><c AV="#href">AVL Tree</li>
-            <li><b>B-Tree</b></li>
-            <li><strong>Heap</strong></li>
-            <li><a href="#graphs">Graphs</a></li>
-            <li><a href="#hashing">Hashing</a>
-</li>
-<li>
-<a href="#sorting">Sorting</a></li>
-                <li><a href="#other">Other Algorithms</a></li>
+                <li><a href="#medziai">Medžiai</a></li>
+                <li><a href="#bst">Dvejetainis Paieškos Medis</a></li>
+                <li><a href="#avl">AVL Medis</a></li>
+                <li><a href="#btree">B-Medis</a></li>
+                <li><a href="#heap">Kuprinė</a></li>
+                <li><a href="#grafai">Grafai</a></li>
+                <li><a href="#hashing">Maišos Lentelės</a></li>
+                <li><a href="#rusiavimas">Rūšiavimas</a></li>
+                <li><a href="#kiti">Kiti Algoritmai</a></li>
             </ul>
         </nav>
 
-        <div id="trees" class="section">
-            <h2>Trees</h2>
-            <p>Trees are non-linear data structures with a hierarchical organization, ideal for fast searching.</p>
-            <h3>Properties</h3>
+        <div id="medziai" class="section">
+            <h2>Medžiai</h2>
+            <p>Medžiai yra nelinijinės duomenų struktūros su hierarchine organizacija, idealiai tinkamos greitai paieškai ir hierarchinių duomenų atvaizdavimui.</p>
+            <h3>Savybės</h3>
             <ul>
-                <li><strong>root:</strong> The top node with no incoming edge.</li>
-                <li><strong>Parent and Child:</strong> Each node (except the root) has one parent and can have multiple child.</li>
-                <li><strong>Subtree:</strong> A tree formed by a node and its descendant.</li>
-                <li><strong>Leaf:</strong> A node with no child.</li>
-                <li><Path>Leaf:</Path> A sequence of node.</li>
+                <li><strong>Šaknis:</strong> Viršutinis mazgas be įeinančių briaunų.</li>
+                <li><strong>Tėvas ir Vaikas:</strong> Kiekvienas mazgas (išskyrus šaknį) turi vieną tėvą ir gali turėti kelis vaikus.</li>
+                <li><strong>Pomedis:</strong> Medis, sudarytas iš mazgo ir jo palikuonių.</li>
+                <li><strong>Lapas:</strong> Mazgas be vaikų.</li>
+                <li><strong>Kelias:</strong> Mazgų seka, kur kiekviena gretima pora sujungta briauna.</li>
             </ul>
-            <h3>Binary Tree</h3>
-            <p>A binary tree is a tree where each node has at most two children (left and right).</p>
+            <h3>Dvejetainis Medis</h3>
+            <p>Dvejetainis medis yra medis, kuriame kiekvienas mazgas turi ne daugiau kaip du vaikus (kairįjį ir dešinįjį).</p>
             <ul>
-                <li><strong>Height:</strong> The length of the longest path from root to leaf.</li>
-                <li><Depth>Right:</Depth> Depth of path from root to node.</li>
-                <li>Traversals:</strong>
+                <li><strong>Aukštis:</strong> Ilgiausio kelio nuo šaknies iki lapo ilgis.</li>
+                <li><strong>Gylis:</strong> Kelio nuo šaknies iki mazgo ilgis.</li>
+                <li><strong>Apėjimai:</strong>
                     <ul>
-                        <li>Preorder (Root, Left, Right)</li>
-                        <li>Inorder (Left, Root, Right)</li>
-                        <li>Postorder (Left, Right, Right)</li>
+                        <li>Išankstinis (Šaknis, Kairė, Dešinė)</li>
+                        <li>Vidinis (Kairė, Šaknis, Dešinė)</li>
+                        <li>Atgalinis (Kairė, Dešinė, Šaknis)</li>
                     </ul>
                 </li>
             </ul>
             <div class="example">
-                <p><strong>Example:</strong> For a binary tree with root A, left child B (with children D and E), and right child C (with children F, G, H, I):</p>
+                <p><strong>Pavyzdys:</strong> Dvejetainiam mediui su šaknimi A, kairiuoju vaiku B (su vaikais D, E) ir dešiniuoju vaiku C (su vaikais F, G, H, I):</p>
                 <ul>
-                    <li>Preorder: A, B, C, E, D, F, G</li>
-                    <li>Inorder: D, B, A, E, C, G, H, I</li>
-                    <li>Postorder: I, E, B, I, G, H, I, C, A</li>
+                    <li>Išankstinis: A, B, D, E, C, F, G, H, I</li>
+                    <li>Vidinis: D, B, E, A, F, C, G, H, I</li>
+                    <li>Atgalinis: D, E, B, F, G, H, I, C, A</li>
                 </ul>
             </div>
         </div>
 
         <div id="bst" class="section">
-            <h2>Binary Search Tree (BST)</h2>
-            <p>A BST is a binary tree where the left subtree of a node contains values less than the node, and the right subtree contains values greater than or equal to the node.</p>
-            <h3>Properties</h3>
+            <h2>Dvejetainis Paieškos Medis (BST)</h2>
+            <p>Dvejetainis paieškos medis yra dvejetainis medis, kuriame kairysis pomedis turi mažesnes reikšmes nei mazgas, o dešinysis pomedis turi didesnes arba lygias mazgo reikšmes.</p>
+            <h3>Savybės</h3>
             <ul>
-                <li><strong>Left subtree values < node value.</strong>.</li>
-                <strong>Right subtree values ≥ node value.</strong>.</li>
-                <li><strong>Each subtree is a BST.</li>
+                <li>Kairiojo pomedžio reikšmės < mazgo reikšmė.</li>
+                <li>Dešiniojo pomedžio reikšmės ≥ mazgo reikšmė.</li>
+                <li>Kiekvienas pomedis yra BST.</li>
             </ul>
-            <h3>Operations</h3>
+            <h3>Operacijos</h3>
             <ul>
-                <li><strong>Insert:</strong> Recursively insert into the left or right subtree based on value comparison.</li>
-                <li><strong>Search:</strong> Compare with root, traverse left or right subtree.</li>
-                <li><strong>Deletion:</strong> Handle three cases:
+                <li><strong>Įterpimas:</strong> Rekursyviai įterpiama į kairįjį arba dešinįjį pomedį pagal reikšmės palyginimą.</li>
+                <li><strong>Paieška:</strong> Palyginama su šaknimi, pereinama į kairįjį arba dešinįjį pomedį.</li>
+                <li><strong>Šalinimas:</strong> Tvarkomi trys atvejai:
                     <ul>
-                        <li>Leaf>Leaf: Remove directly.</li>
-                        <li>One child: Replace with a child.</li>
-                        else: Replace with maximum of two children.
+                        <li>Lapas: Šalinamas tiesiogiai.</li>
+                        <li>Vienas vaikas: Pakeičiamas vaiku.</li>
+                        <li>Du vaikai: Pakeičiamas kairiojo pomedžio maksimumu, tada šalinamas tas mazgas.</li>
                     </ul>
                 </li>
             </ul>
-            <h3>Example Code (C)</h3>
+            <h3>Pavyzdinis Kodas (C)</h3>
             <pre class="code-block">
 struct medis {
-    int data;
-    struct medis *kaire;
-    struct medis *desine;
+    int data; // Duomenys
+    struct medis *kaire; // Kairysis vaikas
+    struct medis *desine; // Dešinysis vaikas
 };
 
 struct medis* iterpti(struct medis *saknis, int x) {
@@ -214,7 +212,7 @@ struct medis* panaikinti(struct medis *saknis, int x) {
     if (saknis == NULL) return NULL;
     if (x > saknis->data)
         saknis->desine = panaikinti(saknis->desine, x);
-    else if (x <= saknis->data)
+    else if (x < saknis->data)
         saknis->kaire = panaikinti(saknis->kaire, x);
     else {
         if (saknis->kaire == NULL && saknis->desine == NULL) {
@@ -229,46 +227,46 @@ struct medis* panaikinti(struct medis *saknis, int x) {
         else {
             struct medis *temp = rasti_max(saknis->kaire);
             saknis->data = temp->data;
-            saknis->kaire = panaikinti(saknis->kaire, temp->temp->data        };
-            return saknis;
+            saknis->kaire = panaikinti(saknis->kaire, temp->data);
         }
     }
     return saknis;
 }
             </pre>
             <div class="note">
-                <p>Inorder traversal of a BST yields values in sorted order.</p>
+                <p>Vidinis BST apėjimas pateikia reikšmes surūšiuota tvarka.</p>
             </div>
+        </div>
 
         <div id="avl" class="section">
-            <h2>AVL Tree</h2>
-            <p>An AVL tree is a self-balancing BST where the height difference (balance factor) between left and right subtrees of any node is at most 2, ensuring O(log n) operations.</p>
-            <h3>Balance Factor (BF)</h3>
-            <p>BF = height(left) subtree) - height(right) subtree). Valid values: -1, 0, -2.</p>
-            <h3>Rotations</h3>
+            <h2>AVL Medis</h2>
+            <p>AVL medis yra savibalansuojantis BST, kuriame kairiojo ir dešiniojo pomedžių aukščių skirtumas (balanso faktorius) neviršija 1, užtikrinant O(log n) operacijų sudėtingumą.</p>
+            <h3>Balanso Faktorius (BF)</h3>
+            <p>BF = kairiojo pomedžio aukštis - dešiniojo pomedžio aukštis. Galimos reikšmės: -1, 0, 1.</p>
+            <h3>Rotacijos</h3>
             <ul>
-                <li><strong>Right Rotation:</strong> BF = 2, left child's BF = 1.</li>
-                <li><strong>Left Rotation:</strong> BF = -2, left child.</li>
-                <li><strong>Right Rotation:</strong> BF = -2, right child's BF = 1.</li>
-                <li><strong>Left-Right Rotation:</strong> BF = 2, left child's BF = -1.</li>
+                <li><strong>Dešininė Rotacija:</strong> BF = 2, kairiojo vaiko BF = 1.</li>
+                <li><strong>Kairinė Rotacija:</strong> BF = -2, dešiniojo vaiko BF = -1.</li>
+                <li><strong>Dešininė-Kairinė Rotacija:</strong> BF = -2, dešiniojo vaiko BF = 1.</li>
+                <li><strong>Kairinė-Dešininė Rotacija:</strong> BF = 2, kairiojo vaiko BF = -1.</li>
             </ul>
-            <h3>Operations</h3>
+            <h3>Operacijos</h3>
             <ul>
-                <li><strong>Insert:</strong> Insert as in BST, update height, rebalance using rotations.</li>
-                <li><strong>Insert:</strong> Delete as in BST, update height, rebalance.</li>
+                <li><strong>Įterpimas:</strong> Įterpiama kaip BST, atnaujinami aukščiai, subalansuojama rotacijomis.</li>
+                <li><strong>Šalinimas:</strong> Šalinama kaip BST, atnaujinami aukščiai, subalansuojama.</li>
             </ul>
-            <h3>Example Code (C)</h3>
+            <h3>Pavyzdinis Kodas (C)</h3>
             <pre class="code-block">
 struct Medis {
-    int key;
-    struct Medis *Kaire;
-    struct Medis *Desine;
-    int dydis;
+    int key; // Raktas
+    struct Medis *Kaire; // Kairysis vaikas
+    struct Medis *Desine; // Dešinysis vaikas
+    int dydis; // Aukštis
 };
 
-int BalansinisKoef(struct Medis *M) {
+int BalansinisKoef(struct Medis *N) {
     if (N == NULL) return 0;
-    return RastiDydi(N->Kaire->Kaire) - RastiDydi(N->Desine);
+    return RastiDydi(N->Kaire) - RastiDydi(N->Desine);
 }
 
 struct Medis *DesinePosukis(struct Medis *y) {
@@ -306,27 +304,27 @@ struct Medis *IterptiElementa(struct Medis *Medis, int key) {
         </div>
 
         <div id="btree" class="section">
-            <h2>B-Tree</h2>
-            <p>A B-tree is a self-balancing tree designed for disk-based storage, allowing nodes to have multiple children (up to m in an m-order B-tree), minimizing disk I/O.</p>
-            <h3>Properties</h3>
+            <h2>B-Medis</h2>
+            <p>B-medis yra savibalansuojantis medis, skirtas disko saugykloms, leidžiantis mazgams turėti kelis vaikus (iki m m-tos eilės B-medyje), sumažindamas disko I/O.</p>
+            <h3>Savybės</h3>
             <ul>
-                <li>Non-leaf nodes have one fewer key than children.</li>
-                <li>All leaves are at the same level.</li>
-                <li>Non-root nodes have at least ⌈m/2⌉ children.</li>
-                <li>Root has 2 to m children or is a leaf.</li>
-                <li>Nodes have at most m-1 keys.</li>
+                <li>Ne lapiniai mazgai turi vienu raktu mažiau nei vaikų.</li>
+                <li>Visi lapai yra tame pačiame lygyje.</li>
+                <li>Ne šakniniai mazgai turi bent ⌈m/2⌉ vaikų.</li>
+                <li>Šaknis turi nuo 2 iki m vaikų arba yra lapas.</li>
+                <li>Mazgai turi daugiausia m-1 raktų.</li>
             </ul>
-            <h3>Operations</h3>
+            <h3>Operacijos</h3>
             <ul>
-                <li><strong>Insertion:</strong> Insert into a leaf, split nodes if they exceed m-1 keys.</li>
-                <li><strong>Deletion:</strong> Remove key, borrow from siblings or merge nodes if underflow occurs.</li>
+                <li><strong>Įterpimas:</strong> Įterpiama į lapą, dalijami mazgai, jei viršijami m-1 raktai.</li>
+                <li><strong>Šalinimas:</strong> Šalinamas raktas, skolinamasi iš kaimynų arba sujungiami mazgai, jei yra nepakankamai raktų.</li>
             </ul>
-            <h3>Example Code (C)</h3>
+            <h3>Pavyzdinis Kodas (C)</h3>
             <pre class="code-block">
 #define MAX 3
 struct BTreeNode {
-    int val[MAX + 1], count;
-    struct BTreeNode *link[MAX + 1];
+    int val[MAX + 1], count; // Raktai ir jų skaičius
+    struct BTreeNode *link[MAX + 1]; // Nuorodos į vaikus
 };
 
 struct BTreeNode *createNode(int val, struct BTreeNode *child) {
@@ -350,28 +348,28 @@ void insertNode(int val, int pos, struct BTreeNode *node, struct BTreeNode *chil
     node->count++;
 }
             </pre>
-            <p class="note">B-trees are widely used in databases and file systems due to their efficiency with large datasets.</p>
-            <p>Explore B-tree visualization: <a href="https://www.cs.usfca.edu/~galles/visualization/BTree.html" target="_blank">B-Tree Visualization</a></p>
+            <p class="note">B-medžiai plačiai naudojami duomenų bazėse ir failų sistemose dėl jų efektyvumo su dideliais duomenų rinkiniais.</p>
+            <p>Išbandykite B-medžio vizualizaciją: <a href="https://www.cs.usfca.edu/~galles/visualization/BTree.html" target="_blank">B-Medžio Vizualizacija</a></p>
         </div>
 
         <div id="heap" class="section">
-            <h2>Heap (Binary Heap)</h2>
-            <p>A binary heap is a complete binary tree where each node's children are less than or equal to (max-heap) or greater than or equal to (min-heap) the node, often stored as an array.</p>
-            <h3>Properties</h3>
+            <h2>Kuprinė (Dvejetainė Kuprinė)</h2>
+            <p>Dvejetainė kuprinė yra pilnas dvejetainis medis, kuriame kiekvieno mazgo vaikai yra mažesni arba lygūs (maksimali kuprinė) arba didesni arba lygūs (minimali kuprinė) mazgui, dažnai saugoma kaip masyvas.</p>
+            <h3>Savybės</h3>
             <ul>
-                <li>Complete tree: Filled level by level, left to right.</li>
-                <li>Heap property: Parent ≥ children (max-heap) or parent ≤ children (min-heap).</li>
-                <li>Array representation: Root at A[1], children of A[i] at A[2i], A[2i+1], parent at A[⌊i/2⌋].</li>
+                <li>Pilnas medis: Užpildomas pagal lygius, iš kairės į dešinę.</li>
+                <li>Kuprinės savybė: Tėvas ≥ vaikai (maksimali kuprinė) arba tėvas ≤ vaikai (minimali kuprinė).</li>
+                <li>Masyvo atvaizdavimas: Šaknis yra A[1], A[i] vaikai yra A[2i], A[2i+1], tėvas yra A[⌊i/2⌋].</li>
             </ul>
-            <h3>Operations</h3>
+            <h3>Operacijos</h3>
             <ul>
-                <li><strong>Insert:</strong> Add to the end, bubble up by swapping with parent.</li>
-                <li><strong>Delete Min/Max:</strong> Remove root, replace with last element, heapify down.</li>
-                <li><strong>Build Heap:</strong> Heapify nodes from last non-leaf to root.</li>
+                <li><strong>Įterpimas:</strong> Pridedama prie galo, kyla aukštyn keičiant vietomis su tėvu.</li>
+                <li><strong>Min/Max Šalinimas:</strong> Šalinama šaknis, pakeičiama paskutiniu elementu, subalansuojama žemyn.</li>
+                <li><strong>Kuprinės Sukūrimas:</strong> Balansuojami mazgai nuo paskutinio ne lapo iki šaknies.</li>
             </ul>
-            <h3>Example Code (C)</h3>
+            <h3>Pavyzdinis Kodas (C)</h3>
             <pre class="code-block">
-int heap[1000000], heapSize;
+int heap[1000000], heapSize; // Kuprinė ir jos dydis
 
 void Insert(int element) {
     heapSize++;
@@ -396,42 +394,42 @@ int DeleteMin() {
     return minElement;
 }
             </pre>
-            <div class="note">Heaps are used in priority queues and heap sort algorithms.</div>
+            <div class="note">Kuprinės naudojamos prioritetinėse eilėse ir kuprinės rūšiavimo algoritmuose.</div>
         </div>
 
-        <div id="graphs" class="section">
-            <h2>Graphs</h2>
-            <p>A graph is a data structure consisting of vertices (nodes) and edges (connections between nodes), used to model relationships.</p>
-            <h3>Types</h3>
+        <div id="grafai" class="section">
+            <h2>Grafai</h2>
+            <p>Grafas yra duomenų struktūra, sudaryta iš viršūnių (mazgų) ir briaunų (jungčių tarp mazgų), naudojama ryšiams modeliuoti.</p>
+            <h3>Tipai</h3>
             <ul>
-                <li><strong>Directed vs. Undirected:</strong> Directed graphs have ordered edges (arcs); undirected have unordered edges.</li>
-                <li><strong>Weighted vs. Unweighted:</strong> Weighted graphs assign values (e.g., distances) to edges.</li>
-                <li><strong>Cyclic vs. Acyclic:</strong> Cyclic graphs contain cycles; acyclic do not.</li>
+                <li><strong>Kryptiniai vs. Nekryptiniai:</strong> Kryptiniuose grafuose briaunos yra kryptingos (lankai); nekryptiniuose briaunos yra be krypties.</li>
+                <li><strong>Svertiniai vs. Nesvertiniai:</strong> Svertiniuose grafuose briaunoms priskiriamos reikšmės (pvz., atstumai).</li>
+                <li><strong>Cikliniai vs. Acikliniai:</strong> Cikliniuose grafuose yra ciklai; acikliniuose jų nėra.</li>
             </ul>
-            <h3>Representations</h3>
+            <h3>Atvaizdavimai</h3>
             <ul>
-                <li><strong>Adjacency Matrix:</strong> A 2D array where matrix[i][j] indicates an edge from i to j.</li>
-                <li><strong>Adjacency List:</strong> Each vertex stores a list of adjacent vertices.</li>
+                <li><strong>Gretimumo Matrica:</strong> 2D masyvas, kuriame matrica[i][j] rodo briauną iš i į j.</li>
+                <li><strong>Gretimumo Sąrašas:</strong> Kiekviena viršūnė saugo gretimų viršūnių sąrašą.</li>
             </ul>
-            <h3>Traversals</h3>
+            <h3>Apėjimai</h3>
             <ul>
-                <li><strong>Depth-First Search (DFS):</strong> Explores as far as possible along each branch before backtracking.</li>
-                <li><strong>Breadth-First Search (BFS):</strong> Explores all neighbors at the current depth before moving deeper.</li>
+                <li><strong>Gylio Pirmenybės Paieška (DFS):</strong> Tyrinėja kuo toliau palei kiekvieną šaką prieš grįždama atgal.</li>
+                <li><strong>Platumo Pirmenybės Paieška (BFS):</strong> Tyrinėja visus kaimynus esamame gylyje prieš pereidama giliau.</li>
             </ul>
-            <h3>Example Code (C, Adjacency List)</h3>
+            <h3>Pavyzdinis Kodas (C, Gretimumo Sąrašas)</h3>
             <pre class="code-block">
 #include <stdio.h>
 #include <stdlib.h>
 #define MAX 100
 
 struct Node {
-    int vertex;
-    struct Node* next;
+    int vertex; // Viršūnė
+    struct Node* next; // Kitas mazgas
 };
 
 struct Graph {
-    int V;
-    struct Node** adjList;
+    int V; // Viršūnių skaičius
+    struct Node** adjList; // Gretimumo sąrašas
 };
 
 struct Graph* createGraph(int V) {
@@ -449,36 +447,36 @@ void addEdge(struct Graph* graph, int src, int dest) {
     graph->adjList[src] = newNode;
 }
             </pre>
-            <h3>Algorithms</h3>
+            <h3>Algoritmai</h3>
             <ul>
-                <li><strong>Dijkstra’s Algorithm:</strong> Finds shortest paths in weighted graphs with non-negative weights.</li>
-                <li><strong>Kruskal’s Algorithm:</strong> Finds the minimum spanning tree using a greedy approach.</li>
+                <li><strong>Dijkstra Algoritmas:</strong> Randa trumpiausius kelius svertiniuose grafuose su neneigiamais svoriais.</li>
+                <li><strong>Kruskal Algoritmas:</strong> Randa minimalųjį dengiantį medį naudojant godųjį metodą.</li>
             </ul>
         </div>
 
         <div id="hashing" class="section">
-            <h2>Hashing</h2>
-            <p>Hashing maps data to a fixed-size table using a hash function, enabling O(1) average-case access time.</p>
-            <h3>Hash Function</h3>
-            <p>A function that converts a key into an index in the hash table. Example: h(k) = k mod m.</p>
-            <h3>Collision Resolution</h3>
+            <h2>Maišos Lentelės</h2>
+            <p>Maišos lentelės susieja duomenis su fiksuoto dydžio lentele naudodamos maišos funkciją, užtikrindamos O(1) vidutinį prieigos laiką.</p>
+            <h3>Maišos Funkcija</h3>
+            <p>Funkcija, kuri konvertuoja raktą į lentelės indeksą. Pavyzdys: h(k) = k mod m.</p>
+            <h3>Kolizijų Sprendimas</h3>
             <ul>
-                <li><strong>Chaining:</strong> Store colliding elements in a linked list at the same index.</li>
-                <li><strong>Open Addressing:</strong> Find another slot using probing (linear, quadratic, double hashing).</li>
+                <li><strong>Grandininis Metodas:</strong> Saugo susiduriančius elementus sąraše tame pačiame indekse.</li>
+                <li><strong>Atviras Adresavimas:</strong> Randa kitą laisvą vietą naudojant zondavimą (linijinį, kvadratinį, dvigubą maišos).</li>
             </ul>
-            <h3>Example Code (C, Chaining)</h3>
+            <h3>Pavyzdinis Kodas (C, Grandininis Metodas)</h3>
             <pre class="code-block">
 #include <stdio.h>
 #include <stdlib.h>
 #define SIZE 10
 
 struct Node {
-    int data;
-    struct Node* next;
+    int data; // Duomenys
+    struct Node* next; // Kitas mazgas
 };
 
 struct HashTable {
-    struct Node* table[SIZE];
+    struct Node* table[SIZE]; // Maišos lentelė
 };
 
 struct HashTable* createHashTable() {
@@ -496,100 +494,100 @@ void insert(struct HashTable* ht, int key) {
 }
             </pre>
             <div class="example">
-                <p><strong>Example:</strong> Insert keys 15, 25, 35 into a hash table of size 10 (h(k) = k mod 10). All map to index 5, forming a linked list: 35 -> 25 -> 15.</p>
+                <p><strong>Pavyzdys:</strong> Įterpkite raktus 15, 25, 35 į maišos lentelę, kurios dydis 10 (h(k) = k mod 10). Visi susieta į indeksą 5, sudarydami sąrašą: 35 -> 25 -> 15.</p>
             </div>
         </div>
 
-        <div id="sorting" class="section">
-            <h2>Sorting Algorithms</h2>
-            <p>Sorting arranges elements in a specific order (e.g., ascending or descending). Fast sorting algorithms use the divide-and-conquer strategy to achieve optimal O(n log n) complexity, unlike slower O(n²) algorithms.</p>
-            <h3>Comparison</h3>
+        <div id="rusiavimas" class="section">
+            <h2>Rūšiavimo Algoritmai</h2>
+            <p>Rūšiavimas išdėsto elementus tam tikra tvarka (pvz., didėjančia ar mažėjančia). Spartieji rūšiavimo algoritmai naudoja skaldyk ir valdyk strategiją, pasiekdami optimalų O(n log n) sudėtingumą, skirtingai nuo lėtesnių O(n²) algoritmų.</p>
+            <h3>Palyginimas</h3>
             <table>
                 <tr>
-                    <th>Algorithm</th>
-                    <th>Time Complexity (Best)</th>
-                    <th>Time Complexity (Average)</th>
-                    <th>Time Complexity (Worst)</th>
-                    <th>Space Complexity</th>
-                    <th>Stable</th>
+                    <th>Algoritmas</th>
+                    <th>Laiko Sudėtingumas (Geriausias)</th>
+                    <th>Laiko Sudėtingumas (Vidutinis)</th>
+                    <th>Laiko Sudėtingumas (Blogiausias)</th>
+                    <th>Vietos Sudėtingumas</th>
+                    <th>Stabilus</th>
                 </tr>
                 <tr>
-                    <td>Bubble Sort</td>
+                    <td>Burbulo Rūšiavimas</td>
                     <td>O(n)</td>
                     <td>O(n²)</td>
                     <td>O(n²)</td>
                     <td>O(1)</td>
-                    <td>Yes</td>
+                    <td>Taip</td>
                 </tr>
                 <tr>
-                    <td>Selection Sort</td>
+                    <td>Išrinkimo Rūšiavimas</td>
                     <td>O(n²)</td>
                     <td>O(n²)</td>
                     <td>O(n²)</td>
                     <td>O(1)</td>
-                    <td>No</td>
+                    <td>Ne</td>
                 </tr>
                 <tr>
-                    <td>Insertion Sort</td>
+                    <td>Įterpimo Rūšiavimas</td>
                     <td>O(n)</td>
                     <td>O(n²)</td>
                     <td>O(n²)</td>
                     <td>O(1)</td>
-                    <td>Yes</td>
+                    <td>Taip</td>
                 </tr>
                 <tr>
-                    <td>Merge Sort</td>
+                    <td>Suliejimo Rūšiavimas</td>
                     <td>O(n log n)</td>
                     <td>O(n log n)</td>
                     <td>O(n log n)</td>
                     <td>O(n)</td>
-                    <td>Yes</td>
+                    <td>Taip</td>
                 </tr>
                 <tr>
-                    <td>Quick Sort</td>
+                    <td>Spartusis Rūšiavimas</td>
                     <td>O(n log n)</td>
                     <td>O(n log n)</td>
                     <td>O(n²)</td>
                     <td>O(log n)</td>
-                    <td>No</td>
+                    <td>Ne</td>
                 </tr>
                 <tr>
-                    <td>Heap Sort</td>
+                    <td>Kuprinės Rūšiavimas</td>
                     <td>O(n log n)</td>
                     <td>O(n log n)</td>
                     <td>O(n log n)</td>
                     <td>O(1)</td>
-                    <td>No</td>
+                    <td>Ne</td>
                 </tr>
                 <tr>
-                    <td>Shell Sort</td>
+                    <td>Šelo Rūšiavimas</td>
                     <td>O(n log n)</td>
                     <td>O(n^(4/3))</td>
                     <td>O(n^(3/2))</td>
                     <td>O(1)</td>
-                    <td>No</td>
+                    <td>Ne</td>
                 </tr>
                 <tr>
-                    <td>Radix Sort</td>
+                    <td>Radix Rūšiavimas</td>
                     <td>O(nk)</td>
                     <td>O(nk)</td>
                     <td>O(nk)</td>
                     <td>O(n + k)</td>
-                    <td>Yes</td>
+                    <td>Taip</td>
                 </tr>
             </table>
-            <h3>Fast Sorting Algorithms</h3>
-            <h4>Quick Sort</h4>
-            <p>QuickSort uses a divide-and-conquer approach, selecting a pivot (e.g., middle, random, or edge element) to partition the array into subarrays of elements less than and greater than the pivot. Subarrays are recursively sorted. Pivot choice affects performance; poor choices (e.g., first element in a sorted array) lead to O(n²) worst-case complexity.</p>
+            <h3>Spartieji Rūšiavimo Algoritmai</h3>
+            <h4>Spartusis Rūšiavimas (QuickSort)</h4>
+            <p>Spartusis rūšiavimas naudoja skaldyk ir valdyk metodą, pasirinkdamas pagrindinį elementą (pvz., vidurinį, atsitiktinį ar kraštinį), kad padalintų masyvą į poaibius su elementais, mažesniais ir didesniais už pagrindinį. Poaibiai rūšiuojami rekursyviai. Pagrindinio elemento pasirinkimas įtakoja efektyvumą; prastas pasirinkimas (pvz., pirmasis elementas surūšiuotame masyve) sukelia O(n²) blogiausio atvejo sudėtingumą.</p>
             <div class="example">
-                <p><strong>Example:</strong> For array [15, 10, 33], choose pivot 15. Partition into [10] (less than 15), [15], and [33] (greater than 15). Recursively sort subarrays, resulting in [10, 15, 33].</p>
+                <p><strong>Pavyzdys:</strong> Masyvui [15, 10, 33], pasirinkite pagrindinį elementą 15. Padalinkite į [10] (mažesnis už 15), [15] ir [33] (didesnis už 15). Rekursyviai rūšiuokite poaibius, gaunant [10, 15, 33].</p>
             </div>
-            <h3>Example Code (C, Quick Sort)</h3>
+            <h3>Pavyzdinis Kodas (C, Spartusis Rūšiavimas)</h3>
             <pre class="code-block">
 void quickSort(int arr[], int left, int right) {
     int i = left, j = right;
     int tmp;
-    int pivot = arr[(left + right) / 2];
+    int pivot = arr[(left + right) / 2]; // Pagrindinis elementas
     while (i <= j) {
         while (arr[i] < pivot) i++;
         while (arr[j] > pivot) j--;
@@ -605,12 +603,12 @@ void quickSort(int arr[], int left, int right) {
     if (i < right) quickSort(arr, i, right);
 }
             </pre>
-            <h4>Merge Sort</h4>
-            <p>MergeSort, invented by John von Neumann in 1945, divides the array into two halves, recursively sorts them, and merges the sorted halves. It guarantees O(n log n) complexity even in the worst case but requires O(n) extra space for merging.</p>
+            <h4>Suliejimo Rūšiavimas (MergeSort)</h4>
+            <p>Suliejimo rūšiavimas, išrastas John von Neumann 1945 m., dalija masyvą į dvi dalis, rekursyviai jas rūšiuoja ir sujungia surūšiuotas dalis. Jis garantuoja O(n log n) sudėtingumą net blogiausiu atveju, bet reikalauja O(n) papildomos vietos sujungimui.</p>
             <div class="example">
-                <p><strong>Example:</strong> For array [65, 72, 105, 55, 2], split into [65, 72] and [105, 55, 2]. Recursively sort to [65, 72] and [2, 55, 105], then merge into [2, 55, 65, 72, 105].</p>
+                <p><strong>Pavyzdys:</strong> Masyvui [65, 72, 105, 55, 2], padalinkite į [65, 72] ir [105, 55, 2]. Rekursyviai rūšiuokite į [65, 72] ir [2, 55, 105], tada sujunkite į [2, 55, 65, 72, 105].</p>
             </div>
-            <h3>Example Code (C, Merge Sort)</h3>
+            <h3>Pavyzdinis Kodas (C, Suliejimo Rūšiavimas)</h3>
             <pre class="code-block">
 void mergeSort(int numbers[], int temp[], int array_size) {
     m_sort(numbers, temp, 0, array_size - 1);
@@ -650,19 +648,19 @@ void merge(int numbers[], int temp[], int left, int mid, int right) {
     }
 }
             </pre>
-            <h4>Shell Sort</h4>
-            <p>ShellSort, developed by D.L. Shell, enhances Insertion Sort by sorting elements at large intervals (gaps) that decrease over time, making the array nearly sorted before a final Insertion Sort pass. Gap sequence affects performance; typical worst-case complexity is O(n^(3/2)).</p>
+            <h4>Šelo Rūšiavimas (ShellSort)</h4>
+            <p>Šelo rūšiavimas, sukurtas D.L. Shell, pagerina įterpimo rūšiavimą, rūšiuodamas elementus dideliais tarpais, kurie mažėja, kol masyvas tampa beveik surūšiuotas, tada atliekamas galutinis įterpimo rūšiavimas. Tarpo seka įtakoja efektyvumą; tipinis blogiausio atvejo sudėtingumas yra O(n^(3/2)).</p>
             <div class="example">
-                <p><strong>Example:</strong> For 16 elements, initial gap = 8, sort pairs {0,8}, {1,9}, etc. Reduce gap to 4, then 2, then 1, applying Insertion Sort at each step.</p>
+                <p><strong>Pavyzdys:</strong> 16 elementų masyvui pradinis tarpas = 8, rūšiuojamos poros {0,8}, {1,9} ir t.t. Sumažinkite tarpą iki 4, tada 2, tada 1, kiekviename žingsnyje taikydami įterpimo rūšiavimą.</p>
             </div>
-            <h3>Example Code (C, Shell Sort)</h3>
+            <h3>Pavyzdinis Kodas (C, Šelo Rūšiavimas)</h3>
             <pre class="code-block">
 void ShellSort(int array[], int length) {
     int i, temp, flag = 1;
     int d = length;
     while (flag || (d > 1)) {
         flag = 0;
-        d = (d + 1) / 2;
+        d = (d + 1) / 2; // Tarpas
         for (i = 0; i < (length - d); i++) {
             if (array[i + d] < array[i]) {
                 temp = array[i + d];
@@ -674,33 +672,33 @@ void ShellSort(int array[], int length) {
     }
 }
             </pre>
-            <h4>Heap Sort</h4>
-            <p>HeapSort uses a binary heap to sort elements. It builds a max-heap, repeatedly extracts the maximum element, and places it at the end, reducing the heap size. It is in-place but not stable.</p>
-            <h4>Radix Sort</h4>
-            <p>Radix Sort processes digits from least to most significant, using a stable sorting algorithm (e.g., counting sort) for each digit. Complexity is O(nk), where k is the number of digits.</p>
-            <h3>Example Code (C, Radix Sort)</h3>
+            <h4>Kuprinės Rūšiavimas (HeapSort)</h4>
+            <p>Kuprinės rūšiavimas naudoja dvejetainę kuprinę elementams rūšiuoti. Sukuriama maksimali kuprinė, pakartotinai išimamas didžiausias elementas ir dedamas į galą, mažinant kuprinės dydį. Algoritmas yra vietinis, bet nestabilus.</p>
+            <h4>Radix Rūšiavimas</h4>
+            <p>Radix rūšiavimas apdoroja skaitmenis nuo mažiausiai iki labiausiai reikšmingo, naudodamas stabilų rūšiavimo algoritmą (pvz., skaičiavimo rūšiavimą) kiekvienam skaitmeniui. Sudėtingumas yra O(nk), kur k yra skaitmenų skaičius.</p>
+            <h3>Pavyzdinis Kodas (C, Radix Rūšiavimas)</h3>
             <pre class="code-block">
 void radixSort(int arr[], int n) {
-    int max = getMax(arr, n);
+    int max = getMax(arr, n); // Randa maksimalų elementą
     for (int exp = 1; max / exp > 0; exp *= 10)
-        countingSort(arr, n, exp);
+        countingSort(arr, n, exp); // Skaičiavimo rūšiavimas
 }
             </pre>
-            <div class="note">Fast sorting algorithms like QuickSort and MergeSort are widely used in practice due to their efficiency, while ShellSort and RadixSort offer unique advantages for specific data types.</div>
+            <div class="note">Spartieji rūšiavimo algoritmai, tokie kaip spartusis ir suliejimo rūšiavimas, yra plačiai naudojami praktikoje dėl jų efektyvumo, o Šelo ir Radix rūšiavimas siūlo unikalius privalumus specifiniams duomenų tipams.</div>
         </div>
 
-        <div id="other" class="section">
-            <h2>Other Algorithms</h2>
-            <h3>Binary Search</h3>
-            <p>Binary Search operates on a sorted array, repeatedly dividing the search interval in half. It compares the middle element with the target, narrowing the search to the left or right half. It achieves O(log n) time complexity.</p>
+        <div id="kiti" class="section">
+            <h2>Kiti Algoritmai</h2>
+            <h3>Dvejetainė Paieška</h3>
+            <p>Dvejetainė paieška veikia su surūšiuotu masyvu, pakartotinai dalindama paieškos intervalą per pusę. Ji lygina vidurinį elementą su tikslu, siaurindama paiešką į kairę arba dešinę pusę. Pasiekia O(log n) laiko sudėtingumą.</p>
             <div class="example">
-                <p><strong>Example:</strong> To find 99 in a sorted array of 1 to 100, start at 50 (too low), then 75 (too low), then 88, and so on, requiring at most 7 steps.</p>
+                <p><strong>Pavyzdys:</strong> Norint rasti 99 surūšiuotame masyve nuo 1 iki 100, pradėkite nuo 50 (per mažas), tada 75 (per mažas), tada 88 ir t.t., reikalaujant daugiausia 7 žingsnių.</p>
             </div>
-            <h3>Example Code (C, Binary Search)</h3>
+            <h3>Pavyzdinis Kodas (C, Dvejetainė Paieška)</h3>
             <pre class="code-block">
 int binarySearch(int array[], int x, int low, int high) {
     while (low <= high) {
-        int mid = low + (high - low) / 2;
+        int mid = low + (high - low) / 2; // Vidurinis indeksas
         if (array[mid] == x)
             return mid;
         if (array[mid] < x)
@@ -708,15 +706,15 @@ int binarySearch(int array[], int x, int low, int high) {
         else
             high = mid - 1;
     }
-    return -1;
+    return -1; // Nerasta
 }
             </pre>
-            <h3>Bubble Sort</h3>
-            <p>Bubble Sort repeatedly compares adjacent elements, swapping them if out of order, until no swaps are needed. It is stable but slow, with O(n²) complexity.</p>
-            <h3>Example Code (C, Bubble Sort)</h3>
+            <h3>Burbulo Rūšiavimas</h3>
+            <p>Burbulo rūšiavimas pakartotinai lygina gretimus elementus, keisdamas juos vietomis, jei jie yra netinkama tvarka, kol nebereikia keitimų. Jis yra stabilus, bet lėtas, su O(n²) sudėtingumu.</p>
+            <h3>Pavyzdinis Kodas (C, Burbulo Rūšiavimas)</h3>
             <pre class="code-block">
 void Bubble_Sort(int array[], int length) {
-    int i, j, flag = 1;
+    int i, j, flag = 1; // Vėliava, ar buvo keitimų
     int temp;
     for (i = 0; (i < length - 1) && flag; i++) {
         flag = 0;
@@ -731,9 +729,9 @@ void Bubble_Sort(int array[], int length) {
     }
 }
             </pre>
-            <h3>Insertion Sort</h3>
-            <p>Insertion Sort builds a sorted array by inserting each element into its correct position among previously sorted elements. It is stable and efficient for small or nearly sorted arrays, with O(n²) complexity.</p>
-            <h3>Example Code (C, Insertion Sort)</h3>
+            <h3>Įterpimo Rūšiavimas</h3>
+            <p>Įterpimo rūšiavimas kuria surūšiuotą masyvą, įterpdamas kiekvieną elementą į teisingą vietą tarp anksčiau surūšiuotų elementų. Jis yra stabilus ir efektyvus mažiems ar beveik surūšiuotiems masyvams, su O(n²) sudėtingumu.</p>
+            <h3>Pavyzdinis Kodas (C, Įterpimo Rūšiavimas)</h3>
             <pre class="code-block">
 void insertion_Sort(int *array, int length) {
     int i, j, tmp;
@@ -748,14 +746,14 @@ void insertion_Sort(int *array, int length) {
     }
 }
             </pre>
-            <h3>Selection Sort</h3>
-            <p>Selection Sort repeatedly finds the minimum element from the unsorted portion and places it at the beginning. It is not stable and has O(n²) complexity, but minimizes swaps.</p>
-            <h3>Example Code (C, Selection Sort)</h3>
+            <h3>Išrinkimo Rūšiavimas</h3>
+            <p>Išrinkimo rūšiavimas pakartotinai randa minimalų elementą iš nerūšiuotos dalies ir deda jį į pradžią. Jis nėra stabilus ir turi O(n²) sudėtingumą, bet sumažina keitimų skaičių.</p>
+            <h3>Pavyzdinis Kodas (C, Išrinkimo Rūšiavimas)</h3>
             <pre class="code-block">
 void Selection_Sort(int *array, int length) {
     if (length <= 1) return;
     for (int i = 0; i < length - 1; i++) {
-        int iSmallest = i;
+        int iSmallest = i; // Mažiausio elemento indeksas
         for (int j = i + 1; j < length; j++) {
             if (array[iSmallest] > array[j])
                 iSmallest = j;
@@ -766,20 +764,20 @@ void Selection_Sort(int *array, int length) {
     }
 }
             </pre>
-            <h3>Traveling Salesman Problem (TSP)</h3>
-            <p>The TSP seeks the shortest route for a salesman to visit n cities and return to the starting point. It has O(n!) complexity for a brute-force approach, making it computationally infeasible for large n. It remains an unsolved problem in computer science for efficient solutions.</p>
+            <h3>Keliaujančio Pardavėjo Problema (TSP)</h3>
+            <p>Keliaujančio pardavėjo problema ieško trumpiausio maršruto, kad pardavėjas aplankytų n miestų ir grįžtų į pradinį tašką. Brute-force metodas turi O(n!) sudėtingumą, todėl yra neįmanomas dideliam n. Tai viena iš neišspręstų kompiuterių mokslo problemų.</p>
             <div class="example">
-                <p><strong>Example:</strong> For 5 cities, there are 120 possible routes. For 7 cities, there are 5040 routes, illustrating the factorial growth.</p>
+                <p><strong>Pavyzdys:</strong> 5 miestams yra 120 galimų maršrutų. 7 miestams yra 5040 maršrutų, iliustruojant faktorinį augimą.</p>
             </div>
-            <div class="note">Binary Search is highly efficient for sorted data, while slower sorting algorithms like Bubble, Insertion, and Selection Sort are simpler but less practical for large datasets. TSP highlights the challenges of combinatorial problems.</div>
+            <div class="note">Dvejetainė paieška yra labai efektyvi surūšiuotiems duomenims, o lėtesni rūšiavimo algoritmai, tokie kaip burbulo, įterpimo ir išrinkimo rūšiavimas, yra paprastesni, bet mažiau praktiški dideliems duomenų rinkiniams. TSP pabrėžia kombinatorinių problemų iššūkius.</div>
         </div>
 
         <div class="section">
-            <h2>Further Reading</h2>
-            <p>Explore visualizations and additional resources:</p>
+            <h2>Papildoma Informacija</h2>
+            <p>Išbandykite vizualizacijas ir papildomus resursus:</p>
             <ul>
-                <li><a href="https://www.cs.usfca.edu/~galles/visualization/BTree.html" target="_blank">B-Tree Visualization</a></li>
-                <li><a href="https://visualgo.net/en" target="_blank">VisuAlgo: Data Structures and Algorithms Visualizations</a></li>
+                <li><a href="https://www.cs.usfca.edu/~galles/visualization/BTree.html" target="_blank">B-Medžio Vizualizacija</a></li>
+                <li><a href="https://visualgo.net/en" target="_blank">VisuAlgo: Duomenų Struktūrų ir Algoritmų Vizualizacijos</a></li>
             </ul>
         </div>
     </div>
