@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Structures and Algorithms</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3, h4 {
+            color: #2c3e50;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        h2 {
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 5px;
+            margin-top: 30px;
+        }
+        nav {
+            background: #2c3e50;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        nav ul li {
+            margin: 5px 10px;
+        }
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+        pre, code {
+            background: #f8f8f8;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        .code-block {
+            margin: 10px 0;
+        }
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .note {
+            background: #e8f4f8;
+            border-left: 4px solid #3498db;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        .example {
+            background: #fff3e6;
+            border-left: 4px solid #e67e22;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background: #3498db;
+            color: #fff;
+        }
+        tr:nth-child(even) {
+            background: #f8f8f8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Data Structures and Algorithms</h1>
+        <nav>
+            <ul>
+                <li><a href="#trees">Trees</a></li>
+                <li><a href="#bst">Binary Search Tree</a></li>
+                <li><a href="#avl">AVL Tree</a></li>
+                <li><a href="#btree">B-Tree</a></li>
+                <li><a href="#heap">Heap</a></li>
+                <li><a href="#graphs">Graphs</a></li>
+                <li><a href="#hashing">Hashing</a></li>
+                <li><a href="#sorting">Sorting</a></li>
+            </ul>
+        </nav>
+
+        <div id="trees" class="section">
+            <h2>Trees</h2>
+            <p>Trees are non-linear data structures with a hierarchical organization, ideal for fast searching and hierarchical data representation.</p>
+            <h3>Properties</h3>
+            <ul>
+                <li><strong>Root:</strong> The top node with no incoming edges.</li>
+                <li><strong>Parent and Child:</strong> Each node (except the root) has one parent and can have multiple children.</li>
+                <li><strong>Subtree:</strong> A tree formed by a node and its descendants.</li>
+                <li><strong>Leaf:</strong> A node with no children.</li>
+                <li><strong>Path:</strong> A sequence of nodes where each consecutive pair is connected by an edge.</li>
+            </ul>
+            <h3>Binary Tree</h3>
+            <p>A binary tree is a tree where each node has at most two children (left and right).</p>
+            <ul>
+                <li><strong>Height:</strong> The length of the longest path from root to leaf.</li>
+                <li><strong>Depth:</strong> The length of the path from the root to a node.</li>
+                <li><strong>Traversals:</strong>
+                    <ul>
+                        <li>Preorder (Root, Left, Right)</li>
+                        <li>Inorder (Left, Root, Right)</li>
+                        <li>Postorder (Left, Right, Root)</li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="example">
+                <p><strong>Example:</strong> For a binary tree with root A, left child B (with children D, E), and right child C (with children F, G, H, I):</p>
+                <ul>
+                    <li>Preorder: A, B, D, E, C, F, G, H, I</li>
+                    <li>Inorder: D, B, E, A, F, C, G, H, I</li>
+                    <li>Postorder: D, E, B, F, G, H, I, C, A</li>
+                </ul>
+            </div>
+        </div>
+
+        <div id="bst" class="section">
+            <h2>Binary Search Tree (BST)</h2>
+            <p>A BST is a binary tree where the left subtree of a node contains values less than the node, and the right subtree contains values greater than or equal to the node.</p>
+            <h3>Properties</h3>
+            <ul>
+                <li>Left subtree values < node value.</li>
+                <li>Right subtree values ≥ node value.</li>
+                <li>Each subtree is a BST.</li>
+            </ul>
+            <h3>Operations</h3>
+            <ul>
+                <li><strong>Insertion:</strong> Recursively insert into the left or right subtree based on value comparison.</li>
+                <li><strong>Search:</strong> Compare with root, traverse left or right subtree.</li>
+                <li><strong>Deletion:</strong> Handle three cases:
+                    <ul>
+                        <li>Leaf: Remove directly.</li>
+                        <li>One child: Replace with child.</li>
+                        <li>Two children: Replace with maximum of left subtree, then delete that node.</li>
+                    </ul>
+                </li>
+            </ul>
+            <h3>Example Code (C)</h3>
+            <pre class="code-block">
+struct medis {
+    int data;
+    struct medis *kaire;
+    struct medis *desine;
+};
+
+struct medis* iterpti(struct medis *saknis, int x) {
+    if (saknis == NULL) {
+        struct medis *p = new medis;
+        p->data = x;
+        p->kaire = p->desine = NULL;
+        return p;
+    }
+    if (x > saknis->data)
+        saknis->desine = iterpti(saknis->desine, x);
+    else
+        saknis->kaire = iterpti(saknis->kaire, x);
+    return saknis;
+}
+
+struct medis* panaikinti(struct medis *saknis, int x) {
+    if (saknis == NULL) return NULL;
+    if (x > saknis->data)
+        saknis->desine = panaikinti(saknis->desine, x);
+    else if (x < saknis->data)
+        saknis->kaire = panaikinti(saknis->kaire, x);
+    else {
+        if (saknis->kaire == NULL && saknis->desine == NULL) {
+            free(saknis);
+            return NULL;
+        }
+        else if (saknis->kaire == NULL || saknis->desine == NULL) {
+            struct medis *temp = saknis->kaire ? saknis->kaire : saknis->desine;
+            free(saknis);
+            return temp;
+        }
+        else {
+            struct medis *temp = rasti_max(saknis->kaire);
+            saknis->data = temp->data;
+            saknis->kaire = panaikinti(saknis->kaire, temp->data);
+        }
+    }
+    return saknis;
+}
+            </pre>
+            <div class="note">
+                <p>Inorder traversal of a BST yields values in sorted order.</p>
+            </div>
+        </div>
+
+        <div id="avl" class="section">
+            <h2>AVL Tree</h2>
+            <p>An AVL tree is a self-balancing BST where the height difference (balance factor) between left and right subtrees of any node is at most 1, ensuring O(log n) operations.</p>
+            <h3>Balance Factor (BF)</h3>
+            <p>BF = height(left subtree) - height(right subtree). Valid values: -1, 0, 1.</p>
+            <h3>Rotations</h3>
+            <ul>
+                <li><strong>Right Rotation:</strong> BF = 2, left child's BF = 1.</li>
+                <li><strong>Left Rotation:</strong> BF = -2, right child's BF = -1.</li>
+                <li><strong>Right-Left Rotation:</strong> BF = -2, right child's BF = 1.</li>
+                <li><strong>Left-Right Rotation:</strong> BF = 2, left child's BF = -1.</li>
+            </ul>
+            <h3>Operations</h3>
+            <ul>
+                <li><strong>Insertion:</strong> Insert as in BST, update heights, rebalance using rotations.</li>
+                <li><strong>Deletion:</strong> Delete as in BST, update heights, rebalance.</li>
+            </ul>
+            <h3>Example Code (C)</h3>
+            <pre class="code-block">
+struct Medis {
+    int key;
+    struct Medis *Kaire;
+    struct Medis *Desine;
+    int dydis;
+};
+
+int BalansinisKoef(struct Medis *N) {
+    if (N == NULL) return 0;
+    return RastiDydi(N->Kaire) - RastiDydi(N->Desine);
+}
+
+struct Medis *DesinePosukis(struct Medis *y) {
+    struct Medis *x = y->Kaire;
+    struct Medis *T2 = x->Desine;
+    x->Desine = y;
+    y->Kaire = T2;
+    y->dydis = max(RastiDydi(y->Kaire), RastiDydi(y->Desine)) + 1;
+    x->dydis = max(RastiDydi(x->Kaire), RastiDydi(x->Desine)) + 1;
+    return x;
+}
+
+struct Medis *IterptiElementa(struct Medis *Medis, int key) {
+    if (Medis == NULL) return NaujasElementas(key);
+    if (key < Medis->key)
+        Medis->Kaire = IterptiElementa(Medis->Kaire, key);
+    else if (key > Medis->key)
+        Medis->Desine = IterptiElementa(Medis->Desine, key);
+    else return Medis;
+    Medis->dydis = 1 + max(RastiDydi(Medis->Kaire), RastiDydi(Medis->Desine));
+    int Balansas = BalansinisKoef(Medis);
+    if (Balansas > 1 && key < Medis->Kaire->key) return DesinePosukis(Medis);
+    if (Balansas < -1 && key > Medis->Desine->key) return KairePosukis(Medis);
+    if (Balansas > 1 && key > Medis->Kaire->key) {
+        Medis->Kaire = KairePosukis(Medis->Kaire);
+        return DesinePosukis(Medis);
+    }
+    if (Balansas < -1 && key < Medis->Desine->key) {
+        Medis->Desine = DesinePosukis(Medis->Desine);
+        return KairePosukis(Medis);
+    }
+    return Medis;
+}
+            </pre>
+        </div>
+
+        <div id="btree" class="section">
+            <h2>B-Tree</h2>
+            <p>A B-tree is a self-balancing tree designed for disk-based storage, allowing nodes to have multiple children (up to m in an m-order B-tree), minimizing disk I/O.</p>
+            <h3>Properties</h3>
+            <ul>
+                <li>Non-leaf nodes have one fewer key than children.</li>
+                <li>All leaves are at the same level.</li>
+                <li>Non-root nodes have at least ⌈m/2⌉ children.</li>
+                <li>Root has 2 to m children or is a leaf.</li>
+                <li>Nodes have at most m-1 keys.</li>
+            </ul>
+            <h3>Operations</h3>
+            <ul>
+                <li><strong>Insertion:</strong> Insert into a leaf, split nodes if they exceed m-1 keys.</li>
+                <li><strong>Deletion:</strong> Remove key, borrow from siblings or merge nodes if underflow occurs.</li>
+            </ul>
+            <h3>Example Code (C)</h3>
+            <pre class="code-block">
+#define MAX 3
+struct BTreeNode {
+    int val[MAX + 1], count;
+    struct BTreeNode *link[MAX + 1];
+};
+
+struct BTreeNode *createNode(int val, struct BTreeNode *child) {
+    struct BTreeNode *newNode = new BTreeNode();
+    newNode->val[1] = val;
+    newNode->count = 1;
+    newNode->link[0] = root;
+    newNode->link[1] = child;
+    return newNode;
+}
+
+void insertNode(int val, int pos, struct BTreeNode *node, struct BTreeNode *child) {
+    int j = node->count;
+    while (j > pos) {
+        node->val[j + 1] = node->val[j];
+        node->link[j + 1] = node->link[j];
+        j--;
+    }
+    node->val[j + 1] = val;
+    node->link[j + 1] = child;
+    node->count++;
+}
+            </pre>
+            <p class="note">B-trees are widely used in databases and file systems due to their efficiency with large datasets.</p>
+            <p>Explore B-tree visualization: <a href="https://www.cs.usfca.edu/~galles/visualization/BTree.html" target="_blank">B-Tree Visualization</a></p>
+        </div>
+
+        <div id="heap" class="section">
+            <h2>Heap (Binary Heap)</h2>
+            <p>A binary heap is a complete binary tree where each node's children are less than or equal to (max-heap) or greater than or equal to (min-heap) the node, often stored as an array.</p>
+            <h3>Properties</h3>
+            <ul>
+                <li>Complete tree: Filled level by level, left to right.</li>
+                <li>Heap property: Parent ≥ children (max-heap) or parent ≤ children (min-heap).</li>
+                <li>Array representation: Root at A[1], children of A[i] at A[2i], A[2i+1], parent at A[⌊i/2⌋].</li>
+            </ul>
+            <h3>Operations</h3>
+            <ul>
+                <li><strong>Insert:</strong> Add to the end, bubble up by swapping with parent.</li>
+                <li><strong>Delete Min/Max:</strong> Remove root, replace with last element, heapify down.</li>
+                <li><strong>Build Heap:</strong> Heapify nodes from last non-leaf to root.</li>
+            </ul>
+            <h3>Example Code (C)</h3>
+            <pre class="code-block">
+int heap[1000000], heapSize;
+
+void Insert(int element) {
+    heapSize++;
+    heap[heapSize] = element;
+    int now = heapSize;
+    while (heap[now / 2] > element) {
+        heap[now] = heap[now / 2];
+        now /= 2;
+    }
+    heap[now] = element;
+}
+
+int DeleteMin() {
+    int minElement = heap[1], lastElement = heap[heapSize--], child, now;
+    for (now = 1; now * 2 <= heapSize; now = child) {
+        child = now * 2;
+        if (child != heapSize && heap[child + 1] < heap[child]) child++;
+        if (lastElement > heap[child]) heap[now] = heap[child];
+        else break;
+    }
+    heap[now] = lastElement;
+    return minElement;
+}
+            </pre>
+            <div class="note">Heaps are used in priority queues and heap sort algorithms.</div>
+        </div>
+
+        <div id="graphs" class="section">
+            <h2>Graphs</h2>
+            <p>A graph is a data structure consisting of vertices (nodes) and edges (connections between nodes), used to model relationships.</p>
+            <h3>Types</h3>
+            <ul>
+                <li><strong>Directed vs. Undirected:</strong> Directed graphs have ordered edges (arcs); undirected have unordered edges.</li>
+                <li><strong>Weighted vs. Unweighted:</strong> Weighted graphs assign values (e.g., distances) to edges.</li>
+                <li><strong>Cyclic vs. Acyclic:</strong> Cyclic graphs contain cycles; acyclic do not.</li>
+            </ul>
+            <h3>Representations</h3>
+            <ul>
+                <li><strong>Adjacency Matrix:</strong> A 2D array where matrix[i][j] indicates an edge from i to j.</li>
+                <li><strong>Adjacency List:</strong> Each vertex stores a list of adjacent vertices.</li>
+            </ul>
+            <h3>Traversals</h3>
+            <ul>
+                <li><strong>Depth-First Search (DFS):</strong> Explores as far as possible along each branch before backtracking.</li>
+                <li><strong>Breadth-First Search (BFS):</strong> Explores all neighbors at the current depth before moving deeper.</li>
+            </ul>
+            <h3>Example Code (C, Adjacency List)</h3>
+            <pre class="code-block">
+#include <stdio.h>
+#include <stdlib.h>
+#define MAX 100
+
+struct Node {
+    int vertex;
+    struct Node* next;
+};
+
+struct Graph {
+    int V;
+    struct Node** adjList;
+};
+
+struct Graph* createGraph(int V) {
+    struct Graph* graph = (struct Graph*)malloc(sizeof(struct Graph));
+    graph->V = V;
+    graph->adjList = (struct Node**)malloc(V * sizeof(struct Node*));
+    for (int i = 0; i < V; i++) graph->adjList[i] = NULL;
+    return graph;
+}
+
+void addEdge(struct Graph* graph, int src, int dest) {
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->vertex = dest;
+    newNode->next = graph->adjList[src];
+    graph->adjList[src] = newNode;
+}
+            </pre>
+            <h3>Algorithms</h3>
+            <ul>
+                <li><strong>Dijkstra’s Algorithm:</strong> Finds shortest paths in weighted graphs with non-negative weights.</li>
+                <li><strong>Kruskal’s Algorithm:</strong> Finds the minimum spanning tree using a greedy approach.</li>
+            </ul>
+        </div>
+
+        <div id="hashing" class="section">
+            <h2>Hashing</h2>
+            <p>Hashing maps data to a fixed-size table using a hash function, enabling O(1) average-case access time.</p>
+            <h3>Hash Function</h3>
+            <p>A function that converts a key into an index in the hash table. Example: h(k) = k mod m.</p>
+            <h3>Collision Resolution</h3>
+            <ul>
+                <li><strong>Chaining:</strong> Store colliding elements in a linked list at the same index.</li>
+                <li><strong>Open Addressing:</strong> Find another slot using probing (linear, quadratic, double hashing).</li>
+            </ul>
+            <h3>Example Code (C, Chaining)</h3>
+            <pre class="code-block">
+#include <stdio.h>
+#include <stdlib.h>
+#define SIZE 10
+
+struct Node {
+    int data;
+    struct Node* next;
+};
+
+struct HashTable {
+    struct Node* table[SIZE];
+};
+
+struct HashTable* createHashTable() {
+    struct HashTable* ht = (struct HashTable*)malloc(sizeof(struct HashTable));
+    for (int i = 0; i < SIZE; i++) ht->table[i] = NULL;
+    return ht;
+}
+
+void insert(struct HashTable* ht, int key) {
+    int index = key % SIZE;
+    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
+    newNode->data = key;
+    newNode->next = ht->table[index];
+    ht->table[index] = newNode;
+}
+            </pre>
+            <div class="example">
+                <p><strong>Example:</strong> Insert keys 15, 25, 35 into a hash table of size 10 (h(k) = k mod 10). All map to index 5, forming a linked list: 35 -> 25 -> 15.</p>
+            </div>
+        </div>
+
+        <div id="sorting" class="section">
+            <h2>Sorting Algorithms</h2>
+            <p>Sorting arranges elements in a specific order (e.g., ascending or descending). Below is a comparison of common algorithms.</p>
+            <h3>Comparison</h3>
+            <table>
+                <tr>
+                    <th>Algorithm</th>
+                    <th>Time Complexity (Best)</th>
+                    <th>Time Complexity (Average)</th>
+                    <th>Time Complexity (Worst)</th>
+                    <th>Space Complexity</th>
+                    <th>Stable</th>
+                </tr>
+                <tr>
+                    <td>Bubble Sort</td>
+                    <td>O(n)</td>
+                    <td>O(n²)</td>
+                    <td>O(n²)</td>
+                    <td>O(1)</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td>Selection Sort</td>
+                    <td>O(n²)</td>
+                    <td>O(n²)</td>
+                    <td>O(n²)</td>
+                    <td>O(1)</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td>Insertion Sort</td>
+                    <td>O(n)</td>
+                    <td>O(n²)</td>
+                    <td>O(n²)</td>
+                    <td>O(1)</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td>Merge Sort</td>
+                    <td>O(n log n)</td>
+                    <td>O(n log n)</td>
+                    <td>O(n log n)</td>
+                    <td>O(n)</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td>Quick Sort</td>
+                    <td>O(n log n)</td>
+                    <td>O(n log n)</td>
+                    <td>O(n²)</td>
+                    <td>O(log n)</td>
+                    <td>No</td>
+                </tr>
+                <tr>
+                    <td>Heap Sort</td>
+                    <td>O(n log n)</td>
+                    <td>O(n log n)</td>
+                    <td>O(n log n)</td>
+                    <td>O(1)</td>
+                    <td>No</td>
+                </tr>
+            </table>
+            <h3>Example Code (C, Quick Sort)</h3>
+            <pre class="code-block">
+void quickSort(int arr[], int low, int high) {
+    if (low < high) {
+        int pi = partition(arr, low, high);
+        quickSort(arr, low, pi - 1);
+        quickSort(arr, pi + 1, high);
+    }
+}
+
+int partition(int arr[], int low, int high) {
+    int pivot = arr[high];
+    int i = low - 1;
+    for (int j = low; j < high; j++) {
+        if (arr[j] <= pivot) {
+            i++;
+            int temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
+        }
+    }
+    int temp = arr[i + 1];
+    arr[i + 1] = arr[high];
+    arr[high] = temp;
+    return i + 1;
+}
+            </pre>
+            <h3>Radix Sort</h3>
+            <p>Radix sort processes digits of numbers from least to most significant, using a stable sorting algorithm (e.g., counting sort) for each digit.</p>
+            <pre class="code-block">
+void radixSort(int arr[], int n) {
+    int max = getMax(arr, n);
+    for (int exp = 1; max / exp > 0; exp *= 10)
+        countingSort(arr, n, exp);
+}
+            </pre>
+        </div>
+
+        <div class="section">
+            <h2>Further Reading</h2>
+            <p>Explore visualizations and additional resources:</p>
+            <ul>
+                <li><a href="https://www.cs.usfca.edu/~galles/visualization/BTree.html" target="_blank">B-Tree Visualization</a></li>
+                <li><a href="https://visualgo.net/en" target="_blank">VisuAlgo: Data Structures and Algorithms Visualizations</a></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
