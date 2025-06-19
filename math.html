@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linear Algebra Reference Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .topic-nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 30px 0;
+        }
+        
+        .topic-btn {
+            background: rgba(255, 255, 255, 0.85);
+            border: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            font-size: 1.1rem;
+        }
+        
+        .topic-btn:hover {
+            background: white;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+        
+        .content-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .section-title {
+            color: #1a2a6c;
+            border-bottom: 3px solid #b21f1f;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            font-size: 2.5rem;
+        }
+        
+        .section-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+            border-top: 4px solid #b21f1f;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        
+        .card-title {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 1.6rem;
+        }
+        
+        .definition-box {
+            background: #f0f7ff;
+            border-left: 4px solid #1a2a6c;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .example-box {
+            background: #fff9e6;
+            border-left: 4px solid #e6a400;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+        }
+        
+        .matrix-container {
+            overflow-x: auto;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .matrix {
+            display: inline-block;
+            border-collapse: collapse;
+            margin: 10px auto;
+        }
+        
+        .matrix td {
+            padding: 8px 15px;
+            text-align: center;
+            border: 1px solid #ddd;
+            min-width: 40px;
+        }
+        
+        .matrix-header {
+            font-weight: bold;
+            color: #1a2a6c;
+        }
+        
+        .matrix-bracket {
+            font-size: 2.5rem;
+            font-weight: 100;
+            vertical-align: middle;
+            padding: 0 10px;
+        }
+        
+        .important {
+            background: #fff0f0;
+            border-left: 4px solid #b21f1f;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+            font-weight: bold;
+        }
+        
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .property-item {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .prop-title {
+            font-weight: bold;
+            color: #b21f1f;
+            margin-bottom: 10px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: white;
+            font-size: 1.1rem;
+            margin-top: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .section-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .topic-nav {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .topic-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Linear Algebra Reference Guide</h1>
+            <p class="subtitle">Comprehensive resource covering matrices, determinants, linear systems, Gaussian elimination, and more</p>
+        </header>
+        
+        <div class="topic-nav">
+            <button class="topic-btn" onclick="scrollToSection('matrices')">Matrices</button>
+            <button class="topic-btn" onclick="scrollToSection('determinants')">Determinants</button>
+            <button class="topic-btn" onclick="scrollToSection('rank')">Matrix Rank</button>
+            <button class="topic-btn" onclick="scrollToSection('inverse')">Inverse Matrices</button>
+            <button class="topic-btn" onclick="scrollToSection('systems')">Linear Systems</button>
+            <button class="topic-btn" onclick="scrollToSection('gaussian')">Gaussian Elimination</button>
+        </div>
+        
+        <!-- Matrices Section -->
+        <section id="matrices" class="content-section">
+            <h2 class="section-title">Matrices and Operations</h2>
+            <div class="section-content">
+                <div class="card">
+                    <h3 class="card-title">Matrix Definition</h3>
+                    <div class="definition-box">
+                        <p>A matrix is a rectangular table of numbers arranged in <strong>m</strong> rows and <strong>n</strong> columns. It is denoted as:</p>
+                        <div class="matrix-container">
+                            <table class="matrix">
+                                <tr>
+                                    <td>a<sub>11</sub></td>
+                                    <td>a<sub>12</sub></td>
+                                    <td>⋯</td>
+                                    <td>a<sub>1n</sub></td>
+                                </tr>
+                                <tr>
+                                    <td>a<sub>21</sub></td>
+                                    <td>a<sub>22</sub></td>
+                                    <td>⋯</td>
+                                    <td>a<sub>2n</sub></td>
+                                </tr>
+                                <tr>
+                                    <td>⋮</td>
+                                    <td>⋮</td>
+                                    <td>⋱</td>
+                                    <td>⋮</td>
+                                </tr>
+                                <tr>
+                                    <td>a<sub>m1</sub></td>
+                                    <td>a<sub>m2</sub></td>
+                                    <td>⋯</td>
+                                    <td>a<sub>mn</sub></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">Special Matrices</h3>
+                    <div class="definition-box">
+                        <p><strong>Square Matrix:</strong> Same number of rows and columns (m = n)</p>
+                        <p><strong>Identity Matrix:</strong> Diagonal elements are 1, others are 0</p>
+                        <div class="matrix-container">
+                            <table class="matrix">
+                                <tr>
+                                    <td>1</td>
+                                    <td>0</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>0</td>
+                                    <td>1</td>
+                                    <td>0</td>
+                                </tr>
+                                <tr>
+                                    <td>0</td>
+                                    <td>0</td>
+                                    <td>1</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <p><strong>Triangular Matrix:</strong> All elements below (or above) the diagonal are zero</p>
+                        <p><strong>Zero Matrix:</strong> All elements are zero</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">Matrix Operations</h3>
+                    <div class="definition-box">
+                        <p><strong>Addition:</strong> Matrices must be same size</p>
+                        <div class="matrix-container">
+                            <table class="matrix">
+                                <tr>
+                                    <td>a<sub>11</sub>+b<sub>11</sub></td>
+                                    <td>a<sub>12</sub>+b<sub>12</sub></td>
+                                </tr>
+                                <tr>
+                                    <td>a<sub>21</sub>+b<sub>21</sub></td>
+                                    <td>a<sub>22</sub>+b<sub>22</sub></td>
+                                </tr>
+                            </table>
+                        </div>
+                        <p><strong>Scalar Multiplication:</strong></p>
+                        <p>k × A = [k·a<sub>ij</sub>]</p>
+                        <p><strong>Matrix Multiplication:</strong> Columns of A must match rows of B</p>
+                        <p>C<sub>ij</sub> = Σ(a<sub>ik</sub>·b<sub>kj</sub>)</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Determinants Section -->
+        <section id="determinants" class="content-section">
+            <h2 class="section-title">Determinants</h2>
+            <div class="section-content">
+                <div class="card">
+                    <h3 class="card-title">Definition</h3>
+                    <div class="definition-box">
+                        <p>A determinant is a scalar value that can be computed from a square matrix. Denoted as |A| or det(A).</p>
+                        <p>For a 2×2 matrix:</p>
+                        <div class="matrix-container">
+                            <table class="matrix">
+                                <tr>
+                                    <td>a<sub>11</sub></td>
+                                    <td>a<sub>12</sub></td>
+                                </tr>
+                                <tr>
+                                    <td>a<sub>21</sub></td>
+                                    <td>a<sub>22</sub></td>
+                                </tr>
+                            </table>
+                            <p>|A| = a<sub>11</sub>a<sub>22</sub> - a<sub>12</sub>a<sub>21</sub></p>
+                        </div>
+                    </div>
+                    <div class="example-box">
+                        <p><strong>Example:</strong></p>
+                        <div class="matrix-container">
+                            <table class="matrix">
+                                <tr>
+                                    <td>1</td>
+                                    <td>-3</td>
+                                </tr>
+                                <tr>
+                                    <td>-5</td>
+                                    <td>10</td>
+                                </tr>
+                            </table>
+                            <p>|A| = (1)(10) - (-3)(-5) = 10 - 15 = -5</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">3×3 Determinant</h3>
+                    <div class="definition-box">
+                        <p>Using Sarrus' rule:</p>
+                        <div class="matrix-container">
+                            <p>|A| = a<sub>11</sub>a<sub>22</sub>a<sub>33</sub> + a<sub>21</sub>a<sub>32</sub>a<sub>13</sub> + a<sub>12</sub>a<sub>23</sub>a<sub>31</sub> - a<sub>13</sub>a<sub>22</sub>a<sub>31</sub> - a<sub>23</sub>a<sub>32</sub>a<sub>11</sub> - a<sub>21</sub>a<sub>12</sub>a<sub>33</sub></p>
+                        </div>
+                    </div>
+                    <div class="example-box">
+                        <p><strong>Example:</strong></p>
+                        <div class="matrix-container">
+                            <table class="matrix">
+                                <tr>
+                                    <td>1</td>
+                                    <td>2</td>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <td>-1</td>
+                                    <td>-1</td>
+                                    <td>-4</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>2</td>
+                                    <td>7</td>
+                                </tr>
+                            </table>
+                            <p>|A| = (1)(-1)(7) + (-1)(2)(3) + (2)(-4)(1) - (3)(-1)(1) - (2)(-4)(1) - (-1)(2)(7) = -7 -6 -8 +3 +8 +14 = 4</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">Minors and Cofactors</h3>
+                    <div class="definition-box">
+                        <p><strong>Minor (M<sub>ij</sub>):</strong> Determinant obtained by deleting the i-th row and j-th column.</p>
+                        <p><strong>Cofactor (A<sub>ij</sub>):</strong> A<sub>ij</sub> = (-1)<sup>i+j</sup> M<sub>ij</sub></p>
+                    </div>
+                    <div class="example-box">
+                        <p><strong>Example for a 3×3 matrix:</strong></p>
+                        <p>M<sub>11</sub> = determinant of the submatrix without row 1 and column 1</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Matrix Rank Section -->
+        <section id="rank" class="content-section">
+            <h2 class="section-title">Matrix Rank</h2>
+            <div class="section-content">
+                <div class="card">
+                    <h3 class="card-title">Definition</h3>
+                    <div class="definition-box">
+                        <p>The rank of a matrix is the highest order of a non-zero minor that can be obtained from the matrix.</p>
+                        <p>Denoted as r(A) or rank(A).</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">Elementary Operations</h3>
+                    <div class="definition-box">
+                        <p>Elementary operations that preserve rank:</p>
+                        <ol>
+                            <li>Swapping two rows or columns</li>
+                            <li>Multiplying a row or column by a non-zero scalar</li>
+                            <li>Adding a multiple of one row to another row</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">Examples</h3>
+                    <div class="example-box">
+                        <p><strong>Matrix A:</strong></p>
+                        <div class="matrix-container">
+                            <table class="matrix">
+                                <tr>
+                                    <td>2</td>
+                                    <td>2</td>
+                                    <td>3</td>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>1</td>
+                                    <td>2</td>
+                                </tr>
+                            </table>
+                        </div>
+                        <p>Rank(A) = 2</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Inverse Matrices Section -->
+        <section id="inverse" class="content-section">
+            <h2 class="section-title">Inverse Matrices</h2>
+            <div class="section-content">
+                <div class="card">
+                    <h3 class="card-title">Definition</h3>
+                    <div class="definition-box">
+                        <p>A matrix B is the inverse of matrix A if:</p>
+                        <p>AB = BA = I (identity matrix)</p>
+                        <p>Denoted as A<sup>-1</sup></p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">Calculation</h3>
+                    <div class="definition-box">
+                        <p>For a square matrix A with |A| ≠ 0:</p>
+                        <p>A<sup>-1</sup> = (1/|A|) · adj(A)</p>
+                        <p>Where adj(A) is the adjugate matrix (transpose of the cofactor matrix)</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">Regular vs. Singular</h3>
+                    <div class="definition-box">
+                        <p><strong>Regular Matrix:</strong> Determinant ≠ 0, has an inverse</p>
+                        <p><strong>Singular Matrix:</strong> Determinant = 0, no inverse exists</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Linear Systems Section -->
+        <section id="systems" class="content-section">
+            <h2 class="section-title">Linear Systems</h2>
+            <div class="section-content">
+                <div class="card">
+                    <h3 class="card-title">Definition</h3>
+                    <div class="definition-box">
+                        <p>A system of linear equations:</p>
+                        <p>a<sub>11</sub>x<sub>1</sub> + a<sub>12</sub>x<sub>2</sub> + ... + a<sub>1n</sub>x<sub>n</sub> = b<sub>1</sub></p>
+                        <p>a<sub>21</sub>x<sub>1</sub> + a<sub>22</sub>x<sub>2</sub> + ... + a<sub>2n</sub>x<sub>n</sub> = b<sub>2</sub></p>
+                        <p>...</p>
+                        <p>a<sub>m1</sub>x<sub>1</sub> + a<sub>m2</sub>x<sub>2</sub> + ... + a<sub>mn</sub>x<sub>n</sub> = b<sub>m</sub></p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">Matrix Form</h3>
+                    <div class="definition-box">
+                        <p>A · X = B</p>
+                        <p>Where:</p>
+                        <p>A = coefficient matrix</p>
+                        <p>X = variable vector</p>
+                        <p>B = constant vector</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">Kronecker-Capelli Theorem</h3>
+                    <div class="definition-box">
+                        <p>A system has a solution if and only if:</p>
+                        <p>rank(A) = rank([A|B])</p>
+                        <p>Where [A|B] is the augmented matrix</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Gaussian Elimination Section -->
+        <section id="gaussian" class="content-section">
+            <h2 class="section-title">Gaussian Elimination</h2>
+            <div class="section-content">
+                <div class="card">
+                    <h3 class="card-title">Method Overview</h3>
+                    <div class="definition-box">
+                        <p>A method for solving systems of linear equations by transforming the augmented matrix to row echelon form through elementary row operations.</p>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">Elementary Operations</h3>
+                    <div class="definition-box">
+                        <p>Operations that preserve solution set:</p>
+                        <ol>
+                            <li>Multiply an equation by a non-zero constant</li>
+                            <li>Add a multiple of one equation to another</li>
+                            <li>Swap two equations</li>
+                        </ol>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title">Solution Cases</h3>
+                    <div class="definition-box">
+                        <p><strong>No solution:</strong> If any row has [0 0 ... 0 | c] with c ≠ 0</p>
+                        <p><strong>Unique solution:</strong> If rank = number of variables</p>
+                        <p><strong>Infinitely many solutions:</strong> If rank < number of variables</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <footer>
+            <p>Linear Algebra Reference Guide | Comprehensive Resource</p>
+        </footer>
+    </div>
+    
+    <script>
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    </script>
+</body>
+</html>
