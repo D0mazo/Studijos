@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 500px;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #003087;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            border-color: #005b96;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 91, 150, 0.3);
+        }
+        .error {
+            color: #d32f2f;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+        .success-message {
+            color: #2e7d32;
+            text-align: center;
+            font-size: 16px;
+            margin-top: 20px;
+            display: none;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #005b96;
+            color: #ffffff;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #003087;
+        }
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        .register-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+        .register-link a {
+            color: #005b96;
+            text-decoration: none;
+        }
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Login Form</h1>
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                <div id="emailError" class="error">Please enter a valid email address.</div>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                <div id="passwordError" class="error">Password is required.</div>
+            </div>
+            <button type="submit" id="submitButton">Login</button>
+        </form>
+        <div id="successMessage" class="success-message">Login successful! Check the console for form data.</div>
+        <div class="register-link">
+            <p>Don't have an account? <a href="registration_form.html">Register here</a></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            clearErrors();
+
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            let isValid = true;
+
+            // Email validation
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!email || !emailPattern.test(email)) {
+                showError('emailError');
+                isValid = false;
+            }
+
+            // Password validation
+            if (!password) {
+                showError('passwordError');
+                isValid = false;
+            }
+
+            if (isValid) {
+                // Simulate form submission (e.g., log to console or send to server)
+                const formData = {
+                    email: email,
+                    password: password
+                };
+                console.log('Login Data:', formData);
+
+                // Show success message and reset form
+                document.getElementById('successMessage').style.display = 'block';
+                document.getElementById('loginForm').reset();
+
+                // Optionally, send data to a server using fetch (uncomment to use)
+                /*
+                fetch('https://your-api-endpoint.com/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                })
+                .then(response => response.json())
+                .then(data => console.log('Server Response:', data))
+                .catch(error => console.error('Error:', error));
+                */
+            }
+        });
+
+        function showError(errorId) {
+            document.getElementById(errorId).style.display = 'block';
+        }
+
+        function clearErrors() {
+            const errors = document.getElementsByClassName('error');
+            for (let error of errors) {
+                error.style.display = 'none';
+            }
+            document.getElementById('successMessage').style.display = 'none';
+        }
+
+        // Real-time validation for better UX
+        document.getElementById('email').addEventListener('input', function() {
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (emailPattern.test(this.value.trim())) {
+                document.getElementById('emailError').style.display = 'none';
+            }
+        });
+
+        document.getElementById('password').addEventListener('input', function() {
+            if (this.value) {
+                document.getElementById('passwordError').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
