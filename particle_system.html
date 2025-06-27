@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impressive 3D Particle System</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            font-family: 'Arial', sans-serif;
+        }
+        canvas {
+            display: block;
+        }
+        .info {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.min.js"></script>
+</head>
+<body>
+    <div class="info">
+        <p>Interactive 3D Particle System<br>Move mouse to rotate view</p>
+    </div>
+    <script>
+        let particles = [];
+        const numParticles = 500;
+
+        class Particle {
+            constructor() {
+                this.pos = createVector(random(-200, 200), random(-200, 200), random(-200, 200));
+                this.vel = createVector(random(-2, 2), random(-2, 2), random(-2, 2));
+                this.size = random(2, 8);
+                this.color = color(random(50, 255), random(50, 255), random(50, 255), 200);
+            }
+
+            update() {
+                this.pos.add(this.vel);
+                // Bounce off boundaries
+                if (this.pos.x < -200 || this.pos.x > 200) this.vel.x *= -1;
+                if (this.pos.y < -200 || this.pos.y > 200) this.vel.y *= -1;
+                if (this.pos.z < -200 || this.pos.z > 200) this.vel.z *= -1;
+            }
+
+            display() {
+                push();
+                translate(this.pos.x, this.pos.y, this.pos.z);
+                fill(this.color);
+                noStroke();
+                sphere(this.size);
+                pop();
+            }
+        }
+
+        function setup() {
+            createCanvas(windowWidth, windowHeight, WEBGL);
+            for (let i = 0; i < numParticles; i++) {
+                particles.push(new Particle());
+            }
+            // Set up lighting for better 3D effect
+            ambientLight(50);
+            directionalLight(255, 255, 255, 0, 0, -1);
+        }
+
+        function draw() {
+            background(0);
+            // Rotate view based on mouse position
+            let camX = map(mouseX, 0, width, -PI/4, PI/4);
+            let camY = map(mouseY, 0, height, -PI/4, PI/4);
+            rotateY(camX);
+            rotateX(camY);
+
+            // Update and display particles
+            for (let particle of particles) {
+                particle.update();
+                particle.display();
+            }
+
+            // Add a subtle orbiting camera effect
+            let time = millis() * 0.001;
+            camera(0, 0, 600 + sin(time * 0.2) * 100, 0, 0, 0, 0, 1, 0);
+        }
+
+        function windowResized() {
+            resizeCanvas(windowWidth, windowHeight);
+        }
+    </script>
+</body>
+</html>
