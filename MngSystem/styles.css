@@ -1,0 +1,71 @@
+/* Custom styles for Employee Management System */
+.container {
+  max-width: 800px;
+}
+
+.card {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+}
+
+.form-group textarea {
+  min-height: 100px;
+}
+
+.list-item {
+  border-bottom: 1px solid #e5e7eb;
+  padding: 0.5rem 0;
+}
+
+.list-item:last-child {
+  border-bottom: none;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #2563eb;
+}
+
+.btn-secondary {
+  background-color: #10b981;
+  color: white;
+}
+
+.btn-secondary:hover {
+  background-color: #059669;
+}
