@@ -62,19 +62,8 @@
             <mxPoint x="450" y="270" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="SaIfwTeyjdDFAnreSiyA-7" value="Atlikti Darbai" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="SaIfwTeyjdDFAnreSiyA-6" vertex="1" connectable="0">
+        <mxCell id="SaIfwTeyjdDFAnreSiyA-7" value="Sąskaitos" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="SaIfwTeyjdDFAnreSiyA-6" vertex="1" connectable="0">
           <mxGeometry x="-0.0042" y="2" relative="1" as="geometry">
-            <mxPoint as="offset" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="SaIfwTeyjdDFAnreSiyA-8" value="" style="endArrow=classic;html=1;rounded=0;exitX=1;exitY=0.75;exitDx=0;exitDy=0;" parent="JTf8n2Wq7xg6XKzNqQm4-1" source="mk2dwkBfZMCbjhUtQFyb-6" edge="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
-            <mxPoint x="170" y="200" as="sourcePoint" />
-            <mxPoint x="354" y="200" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="SaIfwTeyjdDFAnreSiyA-9" value="Lėšos T." style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="SaIfwTeyjdDFAnreSiyA-8" vertex="1" connectable="0">
-          <mxGeometry x="-0.0063" y="-2" relative="1" as="geometry">
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
