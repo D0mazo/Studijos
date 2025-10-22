@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Interactive SQL Cheat Sheet</title>
+  <style>
+    body{font-family:Inter,Segoe UI,Arial;margin:0;padding:0;background:#f7fafc;color:#0f172a}
+    header{background:#0ea5a4;color:white;padding:18px}
+    .container{max-width:1100px;margin:20px auto;padding:20px;background:#fff;border-radius:10px;box-shadow:0 6px 18px rgba(2,6,23,0.08)}
+    h1,h2{margin:0 0 12px}
+    pre{background:#0b1220;color:#e6eef6;padding:12px;border-radius:6px;overflow:auto}
+    table{width:100%;border-collapse:collapse;margin:10px 0}
+    th,td{padding:8px;border:1px solid #e6eef6;text-align:left}
+    .grid{display:grid;grid-template-columns:1fr 420px;gap:20px}
+    label{display:block;margin:6px 0;font-weight:600}
+    textarea,input,select{width:100%;padding:8px;border:1px solid #e6eef6;border-radius:6px}
+    button{background:#0ea5a4;border:0;color:white;padding:10px 12px;border-radius:8px;cursor:pointer}
+    .muted{color:#475569;font-size:0.95rem}
+    .small{font-size:0.9rem}
+    footer{margin-top:18px;color:#64748b;font-size:0.9rem}
+    .output{background:#0b1220;color:#e6eef6;padding:12px;border-radius:6px;height:300px;overflow:auto;font-family:monospace}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Interactive SQL Cheat Sheet — run examples in your browser</h1>
+      <div class="muted">DDL, DML, DCL, TCL commands + examples + live playground (SQLite via sql.js)</div>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="grid">
+      <section>
+        <h2>Quick command map</h2>
+        <table>
+          <thead><tr><th>Category</th><th>Commands (common)</th><th>Purpose</th></tr></thead>
+          <tbody>
+            <tr><td>DDL</td><td>CREATE, ALTER, DROP, TRUNCATE</td><td>Define or change schema (tables, indexes)</td></tr>
+            <tr><td>DML</td><td>SELECT, INSERT, UPDATE, DELETE</td><td>Query and modify data</td></tr>
+            <tr><td>DCL</td><td>GRANT, REVOKE</td><td>Permissions & access control</td></tr>
+            <tr><td>TCL</td><td>BEGIN/COMMIT/ROLLBACK</td><td>Transaction control</td></tr>
+            <tr><td>Others</td><td>EXPLAIN, ANALYZE, VACUUM, PRAGMA</td><td>Optimization & DB-specific operations</td></tr>
+          </tbody>
+        </table>
+
+        <h2>Common examples</h2>
+        <h3>Create a table (DDL)</h3>
+        <pre>CREATE TABLE users (
+  id INTEGER PRIMARY KEY,
+  username TEXT NOT NULL UNIQUE,
+  email TEXT NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+</pre>
+        <h3>Insert rows (DML)</h3>
+        <pre>INSERT INTO users (username, email) VALUES
+  ('alice','alice@example.com'),
+  ('bob','bob@example.com');
+</pre>
+        <h3>Select queries</h3>
+        <pre>-- basic
+SELECT id, username FROM users;
+
+-- filtering & ordering
+SELECT * FROM users WHERE username LIKE 'a%' ORDER BY created_at DESC LIMIT 5;
+
+-- aggregation
+SELECT COUNT(*) AS total_users FROM users;
+
+-- GROUP BY
+SELECT strftime('%Y', created_at) AS year, COUNT(*) FROM users GROUP BY year;
+</pre>
+        <h3>Update / Delete</h3>
+        <pre>UPDATE users SET email = 'new@example.com' WHERE id = 2;
+DELETE FROM users WHERE id = 3;
+</pre>
+
+        <h3>Joins</h3>
+        <pre>-- Suppose we have orders table
+SELECT o.id, u.username, o.amount
+FROM orders o
+JOIN users u ON u.id = o.user_id
+WHERE o.amount &gt; 100;
+
+-- left join (preserve left rows)
+SELECT u.username, o.id as order_id FROM users u LEFT JOIN orders o ON u.id = o.user_id;
+</pre>
+
+        <h3>Subqueries & CTEs</h3>
+        <pre>-- subquery
+SELECT username FROM users WHERE id IN (SELECT user_id FROM orders WHERE amount &gt; 200);
+
+-- CTE (WITH)
+WITH big_orders AS (
+  SELECT user_id, SUM(amount) AS total FROM orders GROUP BY user_id HAVING total &gt; 1000
+)
+SELECT u.username, b.total FROM big_orders b JOIN users u ON u.id = b.user_id;
+</pre>
+
+        <h3>Indexes</h3>
+        <pre>CREATE INDEX idx_orders_user_id ON orders(user_id);
+-- helps lookups on orders.user_id
+</pre>
+
+        <h3>Transactions</h3>
+        <pre>BEGIN TRANSACTION;
+UPDATE accounts SET balance = balance - 100 WHERE id = 1;
+UPDATE accounts SET balance = balance + 100 WHERE id = 2;
+COMMIT; -- or ROLLBACK;
+</pre>
+
+        <h2>Short reference — common clauses</h2>
+        <table>
+          <thead><tr><th>Clause</th><th>Meaning</th></tr></thead>
+          <tbody>
+            <tr><td>WHERE</td><td>Filter rows</td></tr>
+            <tr><td>GROUP BY</td><td>Group rows for aggregates</td></tr>
+            <tr><td>HAVING</td><td>Filter groups (after GROUP BY)</td></tr>
+            <tr><td>ORDER BY</td><td>Sort results</td></tr>
+            <tr><td>LIMIT / OFFSET</td><td>Pagination</td></tr>
+          </tbody>
+        </table>
+
+        <footer>
+          Tip: SQL dialects differ (Postgres, MySQL, SQLite, SQL Server). Examples here use standard SQL and SQLite-compatible syntax.
+        </footer>
+      </section>
+
+      <aside>
+        <h2>Live playground (SQLite)</h2>
+        <div class="muted small">Type SQL below and click <strong>Run</strong>. A sample schema is created automatically.</div>
+        <label for="sql">SQL</label>
+        <textarea id="sql" rows="10">-- Examples you can try:
+SELECT * FROM users;
+
+-- Join example:
+SELECT u.username, o.amount FROM users u JOIN orders o ON u.id = o.user_id;
+</textarea>
+        <div style="margin-top:8px;display:flex;gap:8px">
+          <button id="run">Run</button>
+          <button id="reset">Reset DB</button>
+        </div>
+        <h3>Output</h3>
+        <div id="output" class="output">Output will appear here.</div>
+        <h3 class="small">Schema created for playground</h3>
+        <pre class="small">-- users table
+-- orders table
+-- products table (sample)</pre>
+      </aside>
+    </div>
+  </main>
+
+  <script>
+    // Load sql.js at runtime from CDN and create playground
+    // Uses sql.js (SQLite compiled to WASM). If offline, the playground won't run but examples still useful.
+    (function(){
+      const OUT = document.getElementById('output');
+      const runBtn = document.getElementById('run');
+      const resetBtn = document.getElementById('reset');
+      const textarea = document.getElementById('sql');
+      OUT.textContent = 'Loading SQL engine...';
+
+      // dynamic load
+      const script = document.createElement('script');
+      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/sql-wasm.js';
+      script.onload = init;
+      script.onerror = ()=>{OUT.textContent = 'Could not load the SQL engine (no internet). You can still read the cheat sheet.'};
+      document.head.appendChild(script);
+
+      let SQL;
+      let db;
+
+      async function init(){
+        OUT.textContent = 'Initializing...';
+        // sql.js expects locateFile for wasm; default CDN puts wasm next to js, which works for most CDNs.
+        SQL = window.initSqlJs ? await window.initSqlJs({locateFile: file => 'https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/' + file}) : null;
+        if(!SQL){ OUT.textContent='SQL engine unavailable.'; return }
+        db = new SQL.Database();
+        resetDB();
+        OUT.textContent = 'Ready — sample DB loaded. Run a query.';
+      }
+
+      function resetDB(){
+        if(!db) return;
+        // drop and recreate sample schema
+        db.run(`
+          DROP TABLE IF EXISTS users;
+          DROP TABLE IF EXISTS orders;
+          DROP TABLE IF EXISTS products;
+
+          CREATE TABLE users (
+            id INTEGER PRIMARY KEY,
+            username TEXT NOT NULL UNIQUE,
+            email TEXT,
+            created_at TEXT DEFAULT (datetime('now'))
+          );
+
+          CREATE TABLE products (
+            id INTEGER PRIMARY KEY,
+            name TEXT,
+            price REAL
+          );
+
+          CREATE TABLE orders (
+            id INTEGER PRIMARY KEY,
+            user_id INTEGER,
+            product_id INTEGER,
+            amount REAL,
+            created_at TEXT DEFAULT (datetime('now')),
+            FOREIGN KEY(user_id) REFERENCES users(id),
+            FOREIGN KEY(product_id) REFERENCES products(id)
+          );
+
+          INSERT INTO users (username,email) VALUES ('alice','alice@example.com'),('bob','bob@example.com'),('carol','carol@example.com');
+          INSERT INTO products (name,price) VALUES ('Widget',9.99),('Gadget',24.50),('Doohickey',4.75);
+          INSERT INTO orders (user_id,product_id,amount) VALUES (1,2,24.5),(2,1,9.99),(1,3,4.75),(3,2,24.5);
+        `);
+      }
+
+      function runSQL(){
+        if(!db){ OUT.textContent='SQL engine not loaded.'; return }
+        const sql = textarea.value;
+        try{
+          const results = db.exec(sql); // array of {columns, values}
+          if(results.length === 0){ OUT.textContent = 'Query executed. (No rows returned)'; return }
+          // render first result nicely, then others
+          OUT.innerHTML = '';
+          results.forEach((res, idx)=>{
+            const table = document.createElement('table');
+            const thead = document.createElement('thead');
+            const tr = document.createElement('tr');
+            res.columns.forEach(c=>{ const th = document.createElement('th'); th.textContent = c; tr.appendChild(th); });
+            thead.appendChild(tr); table.appendChild(thead);
+            const tbody = document.createElement('tbody');
+            res.values.forEach(row=>{
+              const tr2 = document.createElement('tr');
+              row.forEach(cell=>{ const td=document.createElement('td'); td.textContent = cell===null? 'NULL' : cell; tr2.appendChild(td) });
+              tbody.appendChild(tr2);
+            });
+            table.appendChild(tbody);
+            const title = document.createElement('div'); title.style.margin='8px 0'; title.textContent = 'Result set ' + (idx+1);
+            OUT.appendChild(title); OUT.appendChild(table);
+          });
+        }catch(e){
+          OUT.textContent = 'Error: ' + e.message;
+        }
+      }
+
+      runBtn.addEventListener('click', runSQL);
+      resetBtn.addEventListener('click', ()=>{ resetDB(); OUT.textContent='DB reset. Ready.' });
+
+    })();
+  </script>
+</body>
+</html>
